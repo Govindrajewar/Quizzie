@@ -1,10 +1,11 @@
 import { useState } from "react";
 import "../../style/Dashboard/Dashboard.css";
 import { useNavigate } from "react-router-dom";
+import eyeIcon from "../../assets/Dashboard/outline-eyes-icon.png";
 
 function Dashboard() {
   const navigate = useNavigate();
-  const [isDashboard, setIsDashboard] = useState(false);
+  const [isDashboard, setIsDashboard] = useState(true);
   const [isAnalytics, setIsAnalytics] = useState(false);
   const [isCreateQuiz, setIsCreateQuiz] = useState(false);
 
@@ -55,7 +56,11 @@ function Dashboard() {
       <div className="dashboard-navbar">
         <h1>QUIZZIE</h1>
         <ul>
-          <li onClick={handleDashboard} id="dashboardId">
+          <li
+            onClick={handleDashboard}
+            id="dashboardId"
+            className="dashboard-active"
+          >
             Dashboard
           </li>
           <li onClick={handleAnalytics} id="analyticsId">
@@ -73,14 +78,166 @@ function Dashboard() {
 
       <div className="dashboard-content">
         {isDashboard && (
-          <div>
-            <h2>Dashboard!</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-              scelerisque, mi vitae tristique fermentum, justo risus blandit
-              ipsum, non consectetur purus dolor nec metus. Donec auctor
-              tristique neque, sed fermentum purus.
-            </p>
+          <div className="dashboard-header">
+            <div className="dashboard-header-data">
+              <div className="data data-1">
+                <span className="num-of-quiz">12</span>{" "}
+                <span className="text">Quiz</span> <br />{" "}
+                <span className="text">Created</span>
+              </div>
+              <div className="data data-2">
+                <span className="num-of-quiz">110</span>{" "}
+                <span className="text">questions</span> <br />{" "}
+                <span className="text">Created</span>
+              </div>
+              <div className="data data-3">
+                <span className="num-of-quiz">1.4k</span>{" "}
+                <span className="text">Total</span> <br />{" "}
+                <span className="text">Impressions</span>
+              </div>
+            </div>
+
+            <h2>Trending Quiz's</h2>
+            <div className="quiz-statistics">
+              <div className="quizData">
+                <div className="quiz-data">
+                  <span className="quiz-title">Quiz 1</span>
+                  <span className="quiz-impression">
+                    667
+                    <img src={eyeIcon} alt="eye icon" />
+                  </span>
+                  <br />
+                  <span className="date-created">
+                    Created on : 04 Sep, 2023
+                  </span>
+                </div>
+                <div className="quiz-data">
+                  <span className="quiz-title">Quiz 1</span>
+                  <span className="quiz-impression">
+                    667
+                    <img src={eyeIcon} alt="eye icon" />
+                  </span>
+                  <br />
+                  <span className="date-created">
+                    Created on : 04 Sep, 2023
+                  </span>
+                </div>
+                <div className="quiz-data">
+                  <span className="quiz-title">Quiz 1</span>
+                  <span className="quiz-impression">
+                    667
+                    <img src={eyeIcon} alt="eye icon" />
+                  </span>
+                  <br />
+                  <span className="date-created">
+                    Created on : 04 Sep, 2023
+                  </span>
+                </div>
+                <div className="quiz-data">
+                  <span className="quiz-title">Quiz 1</span>
+                  <span className="quiz-impression">
+                    667
+                    <img src={eyeIcon} alt="eye icon" />
+                  </span>
+                  <br />
+                  <span className="date-created">
+                    Created on : 04 Sep, 2023
+                  </span>
+                </div>
+                <div className="quiz-data">
+                  <span className="quiz-title">Quiz 1</span>
+                  <span className="quiz-impression">
+                    667
+                    <img src={eyeIcon} alt="eye icon" />
+                  </span>
+                  <br />
+                  <span className="date-created">
+                    Created on : 04 Sep, 2023
+                  </span>
+                </div>
+
+                <div className="quiz-data">
+                  <span className="quiz-title">Quiz 1</span>
+                  <span className="quiz-impression">
+                    667
+                    <img src={eyeIcon} alt="eye icon" />
+                  </span>
+                  <br />
+                  <span className="date-created">
+                    Created on : 04 Sep, 2023
+                  </span>
+                </div>
+
+                <div className="quiz-data">
+                  <span className="quiz-title">Quiz 1</span>
+                  <span className="quiz-impression">
+                    667
+                    <img src={eyeIcon} alt="eye icon" />
+                  </span>
+                  <br />
+                  <span className="date-created">
+                    Created on : 04 Sep, 2023
+                  </span>
+                </div>
+
+                <div className="quiz-data">
+                  <span className="quiz-title">Quiz 1</span>
+                  <span className="quiz-impression">
+                    667
+                    <img src={eyeIcon} alt="eye icon" />
+                  </span>
+                  <br />
+                  <span className="date-created">
+                    Created on : 04 Sep, 2023
+                  </span>
+                </div>
+
+                <div className="quiz-data">
+                  <span className="quiz-title">Quiz 1</span>
+                  <span className="quiz-impression">
+                    667
+                    <img src={eyeIcon} alt="eye icon" />
+                  </span>
+                  <br />
+                  <span className="date-created">
+                    Created on : 04 Sep, 2023
+                  </span>
+                </div>
+                <div className="quiz-data">
+                  <span className="quiz-title">Quiz 1</span>
+                  <span className="quiz-impression">
+                    667
+                    <img src={eyeIcon} alt="eye icon" />
+                  </span>
+                  <br />
+                  <span className="date-created">
+                    Created on : 04 Sep, 2023
+                  </span>
+                </div>
+                <div className="quiz-data">
+                  <span className="quiz-title">Quiz 1</span>
+                  <span className="quiz-impression">
+                    667
+                    <img src={eyeIcon} alt="eye icon" />
+                  </span>
+                  <br />
+                  <span className="date-created">
+                    Created on : 04 Sep, 2023
+                  </span>
+                </div>
+                <div className="quiz-data">
+                  <span className="quiz-title">Quiz 1</span>
+                  <span className="quiz-impression">
+                    667
+                    <img src={eyeIcon} alt="eye icon" />
+                  </span>
+                  <br />
+                  <span className="date-created">
+                    Created on : 04 Sep, 2023
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
         )}
 
