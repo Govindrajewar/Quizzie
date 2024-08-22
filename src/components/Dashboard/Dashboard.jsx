@@ -5,9 +5,9 @@ import eyeIcon from "../../assets/Dashboard/outline-eyes-icon.png";
 
 function Dashboard() {
   const navigate = useNavigate();
-  const [isDashboard, setIsDashboard] = useState(true);
+  const [isDashboard, setIsDashboard] = useState(false);
   const [isAnalytics, setIsAnalytics] = useState(false);
-  const [isCreateQuiz, setIsCreateQuiz] = useState(false);
+  const [isCreateQuiz, setIsCreateQuiz] = useState(true);
 
   const handleDashboard = () => {
     setIsDashboard(true);
@@ -49,6 +49,16 @@ function Dashboard() {
   const handleLogout = () => {
     alert("Logged out");
     navigate("/");
+  };
+
+  const addClassToQA = () => {
+    document.getElementById("QA-Id").classList.add("quizType-select");
+    document.getElementById("PT-Id").classList.remove("quizType-select");
+  };
+
+  const addClassToPT = () => {
+    document.getElementById("PT-Id").classList.add("quizType-select");
+    document.getElementById("QA-Id").classList.remove("quizType-select");
   };
 
   return (
@@ -254,14 +264,29 @@ function Dashboard() {
         )}
 
         {isCreateQuiz && (
-          <div>
-            <h2>Create Quiz</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-              scelerisque, mi vitae tristique fermentum, justo risus blandit
-              ipsum, non consectetur purus dolor nec metus. Donec auctor
-              tristique neque, sed fermentum purus.
-            </p>
+          <div className="createQuiz">
+            <div className="create-quiz">
+              <input
+                type="text"
+                name="quizName"
+                id="quizName"
+                placeholder="Quiz name"
+              />
+              <div className="quizType">
+                <div className="quiz-type-select">Quiz Type</div>
+                <div className="quiz-type" id="QA-Id" onClick={addClassToQA}>
+                  Q & A
+                </div>
+                <div className="quiz-type" id="PT-Id" onClick={addClassToPT}>
+                  Poll Type
+                </div>
+              </div>
+
+              <div className="buttons">
+                <div className="cancel-btn">Cancel</div>
+                <div className="continue-btn">Continue</div>
+              </div>
+            </div>
           </div>
         )}
       </div>
