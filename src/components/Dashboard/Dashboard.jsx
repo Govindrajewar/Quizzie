@@ -2,12 +2,14 @@ import { useState } from "react";
 import "../../style/Dashboard/Dashboard.css";
 import { useNavigate } from "react-router-dom";
 import eyeIcon from "../../assets/Dashboard/outline-eyes-icon.png";
+import CreateQuiz from "./CreateQuiz";
 
 function Dashboard() {
   const navigate = useNavigate();
   const [isDashboard, setIsDashboard] = useState(false);
   const [isAnalytics, setIsAnalytics] = useState(false);
   const [isCreateQuiz, setIsCreateQuiz] = useState(true);
+  const [isContinue, setIsContinue] = useState(false);
 
   const handleDashboard = () => {
     setIsDashboard(true);
@@ -284,11 +286,18 @@ function Dashboard() {
 
               <div className="buttons">
                 <div className="cancel-btn">Cancel</div>
-                <div className="continue-btn">Continue</div>
+                <div
+                  className="continue-btn"
+                  onClick={() => setIsContinue(true)}
+                >
+                  Continue
+                </div>
               </div>
             </div>
           </div>
         )}
+
+        {isContinue && <CreateQuiz />}
       </div>
     </div>
   );
