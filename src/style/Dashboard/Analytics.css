@@ -1,0 +1,75 @@
+.Analytics {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #ededed;
+}
+
+.Analytics .analytics-header {
+  font-size: 50px;
+  font-weight: 600;
+  text-align: center;
+  color: #5076ff;
+  margin-bottom: 50px;
+}
+
+.Analytics .quiz-list-table {
+  width: 80%;
+}
+
+.Analytics .header-row,
+.Analytics .body-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 10px;
+  color: black;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.Analytics .header-row {
+  background-color: #5076ff;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.Analytics .header-cell,
+.Analytics .body-cell {
+  flex: 1;
+  text-align: center;
+}
+
+.Analytics .header-cell:last-child,
+.Analytics .body-cell:last-child {
+  flex: 3;
+  text-align: start;
+}
+
+.Analytics .icon {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.Analytics .link {
+  color: #000;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.Analytics #FaTrashAlt {
+  color: #d60000;
+}
+
+.Analytics #FaEdit {
+  color: #7d38ff;
+}
+
+.Analytics #FaShareAlt {
+  color: #60b84b;
+}

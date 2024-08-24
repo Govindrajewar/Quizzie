@@ -4,12 +4,13 @@ import { useNavigate } from "react-router-dom";
 import eyeIcon from "../../assets/Dashboard/outline-eyes-icon.png";
 import CreateQuiz from "./CreateQuiz";
 import ShareQuizLink from "./ShareQuizLink";
+import Analytics from "./Analytics";
 
 function Dashboard() {
   const navigate = useNavigate();
   const [isDashboard, setIsDashboard] = useState(false);
-  const [isAnalytics, setIsAnalytics] = useState(false);
-  const [isCreateQuiz, setIsCreateQuiz] = useState(true);
+  const [isAnalytics, setIsAnalytics] = useState(true);
+  const [isCreateQuiz, setIsCreateQuiz] = useState(false);
   const [isContinue, setIsContinue] = useState(false);
   const [isQuizTypeQA, setIsQuizTypeQA] = useState(true);
   const [isShareQuizLink, setIsShareQuizLink] = useState(false);
@@ -258,17 +259,7 @@ function Dashboard() {
           </div>
         )}
 
-        {isAnalytics && (
-          <div>
-            <h2>Analyst!</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-              scelerisque, mi vitae tristique fermentum, justo risus blandit
-              ipsum, non consectetur purus dolor nec metus. Donec auctor
-              tristique neque, sed fermentum purus.
-            </p>
-          </div>
-        )}
+        {isAnalytics && <Analytics />}
 
         {isCreateQuiz && (
           <div className="createQuiz">
