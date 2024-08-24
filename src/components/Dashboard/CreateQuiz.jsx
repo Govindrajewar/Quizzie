@@ -1,7 +1,12 @@
 import { useState } from "react";
 import "../../style/Dashboard/CreateQuiz.css";
 
-function CreateQuiz({ isQuizTypeQA, setIsContinue }) {
+function CreateQuiz({
+  isQuizTypeQA,
+  setIsContinue,
+  setIsShareQuizLink,
+  setIsCreateQuiz
+}) {
   const [selectedOption, setSelectedOption] = useState(null);
 
   const [selectedLi, setSelectedLi] = useState(null);
@@ -33,6 +38,12 @@ function CreateQuiz({ isQuizTypeQA, setIsContinue }) {
 
   const handleOptionChange = (option) => {
     setSelectedOption(option);
+  };
+
+  const handleShareQuizLink = () => {
+    setIsContinue(false);
+    setIsShareQuizLink(true);
+    setIsCreateQuiz(false);
   };
 
   return (
@@ -331,7 +342,12 @@ function CreateQuiz({ isQuizTypeQA, setIsContinue }) {
         <div className="cancel-btn" onClick={() => setIsContinue(false)}>
           Cancel
         </div>
-        <div className="continue-btn">Create Quiz</div>
+        <div
+          className="continue-btn"
+          onClick={handleShareQuizLink}
+        >
+          Create Quiz
+        </div>
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import "../../style/Dashboard/Dashboard.css";
 import { useNavigate } from "react-router-dom";
 import eyeIcon from "../../assets/Dashboard/outline-eyes-icon.png";
 import CreateQuiz from "./CreateQuiz";
+import ShareQuizLink from "./ShareQuizLink";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ function Dashboard() {
   const [isCreateQuiz, setIsCreateQuiz] = useState(true);
   const [isContinue, setIsContinue] = useState(false);
   const [isQuizTypeQA, setIsQuizTypeQA] = useState(true);
+  const [isShareQuizLink, setIsShareQuizLink] = useState(false);
 
   const handleDashboard = () => {
     setIsDashboard(true);
@@ -313,7 +315,12 @@ function Dashboard() {
           <CreateQuiz
             isQuizTypeQA={isQuizTypeQA}
             setIsContinue={setIsContinue}
+            setIsShareQuizLink={setIsShareQuizLink}
+            setIsCreateQuiz={setIsCreateQuiz}
           />
+        )}
+        {isShareQuizLink && (
+          <ShareQuizLink setIsShareQuizLink={setIsShareQuizLink} />
         )}
       </div>
     </div>
