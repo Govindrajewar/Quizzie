@@ -73,3 +73,67 @@
 .Analytics #FaShareAlt {
   color: #60b84b;
 }
+
+.delete-quiz-modal {
+  height: 40%;
+  width: 70%;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-40%, -50%);
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+
+.delete-quiz-modal-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  /* padding: 20px; */
+}
+
+.delete-quiz-modal-body {
+  width: 40%;
+  font-size: 40px;
+  font-weight: 600;
+  color: #474444;
+  text-align: center;
+}
+
+.delete-quiz-modal-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  width: 70%;
+}
+
+.delete-quiz-button {
+  background-color: #d60000;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-right: 10px;
+  width: 40%;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.Cancel-quiz-button {
+  background-color: white;
+  color: #474444;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  border-radius: 10px;
+  width: 40%;
+  box-shadow: 0px 0px 15px 0px #00000040;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+}

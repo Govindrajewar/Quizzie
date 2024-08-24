@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaEdit, FaTrashAlt, FaShareAlt } from "react-icons/fa";
 import "../../style/Dashboard/Analytics.css";
 
 const Analytics = () => {
+  const [isDeleteQuiz, setIsDeleteQuiz] = useState(false);
+
   const quizzes = [
     { id: 1, name: "Quiz 1", date: "04 Sep, 2023", impressions: "667" },
     { id: 2, name: "Quiz 2", date: "04 Sep, 2023", impressions: "667" },
@@ -38,7 +40,11 @@ const Analytics = () => {
             <div className="body-cell">{quiz.impressions}</div>
             <div className="body-cell">
               <FaEdit className="icon" id="FaEdit" />
-              <FaTrashAlt className="icon" id="FaTrashAlt" />
+              <FaTrashAlt
+                className="icon"
+                id="FaTrashAlt"
+                onClick={() => setIsDeleteQuiz(true)}
+              />
               <FaShareAlt className="icon" id="FaShareAlt" />
               <a href="/" className="link">
                 Question Wise Analysis
@@ -47,6 +53,30 @@ const Analytics = () => {
           </div>
         ))}
       </div>
+
+      {isDeleteQuiz && (
+        <div className="delete-quiz-modal">
+          <div className="delete-quiz-modal-content">
+            <div className="delete-quiz-modal-body">
+              Are you confirm you want to delete ?
+            </div>
+            <div className="delete-quiz-modal-footer">
+              <div
+                className="delete-quiz-button"
+                onClick={() => alert("Delete")}
+              >
+                Confirm Delete
+              </div>
+              <div
+                className="Cancel-quiz-button"
+                onClick={() => setIsDeleteQuiz(false)}
+              >
+                Cancel
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
