@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../../style/Dashboard/CreateQuiz.css";
 
-function CreateQuiz({ isQuizTypeQA }) {
+function CreateQuiz({ isQuizTypeQA, setIsContinue }) {
   const [selectedOption, setSelectedOption] = useState(null);
 
   const [selectedLi, setSelectedLi] = useState(null);
@@ -328,7 +328,9 @@ function CreateQuiz({ isQuizTypeQA }) {
 
       {/* Buttons */}
       <div className="create-quiz-buttons">
-        <div className="cancel-btn">Cancel</div>
+        <div className="cancel-btn" onClick={() => setIsContinue(false)}>
+          Cancel
+        </div>
         <div className="continue-btn">Create Quiz</div>
       </div>
     </div>

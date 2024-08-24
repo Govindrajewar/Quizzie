@@ -279,7 +279,11 @@ function Dashboard() {
               />
               <div className="quizType">
                 <div className="quiz-type-select">Quiz Type</div>
-                <div className="quiz-type" id="QA-Id" onClick={addClassToQA}>
+                <div
+                  className="quiz-type quizType-select"
+                  id="QA-Id"
+                  onClick={addClassToQA}
+                >
                   Q & A
                 </div>
                 <div className="quiz-type" id="PT-Id" onClick={addClassToPT}>
@@ -288,7 +292,12 @@ function Dashboard() {
               </div>
 
               <div className="buttons">
-                <div className="cancel-btn">Cancel</div>
+                <div
+                  className="cancel-btn"
+                  onClick={() => setIsCreateQuiz(false)}
+                >
+                  Cancel
+                </div>
                 <div
                   className="continue-btn"
                   onClick={() => setIsContinue(true)}
@@ -300,7 +309,12 @@ function Dashboard() {
           </div>
         )}
 
-        {isContinue && <CreateQuiz isQuizTypeQA={isQuizTypeQA} />}
+        {isContinue && (
+          <CreateQuiz
+            isQuizTypeQA={isQuizTypeQA}
+            setIsContinue={setIsContinue}
+          />
+        )}
       </div>
     </div>
   );
