@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../../style/Dashboard/CreateQuiz.css";
 
-function CreateQuiz() {
+function CreateQuiz({ isQuizTypeQA }) {
   const [selectedOption, setSelectedOption] = useState(null);
 
   const [selectedLi, setSelectedLi] = useState(null);
@@ -112,38 +112,43 @@ function CreateQuiz() {
               <div className="add-option">Add Option</div>
             </div>
           </div>
-          <div className="clock-timer">
-            <ul>
-              <li className="timer-header">Timer</li>
-              <li
-                style={{
-                  backgroundColor: selectedLi === 1 ? "#D60000" : "transparent",
-                  color: selectedLi === 1 ? "white" : "inherit",
-                }}
-                onClick={() => handleClick(1)}
-              >
-                OFF
-              </li>
-              <li
-                style={{
-                  backgroundColor: selectedLi === 2 ? "#D60000" : "transparent",
-                  color: selectedLi === 2 ? "white" : "inherit",
-                }}
-                onClick={() => handleClick(2)}
-              >
-                5 sec
-              </li>
-              <li
-                style={{
-                  backgroundColor: selectedLi === 3 ? "#D60000" : "transparent",
-                  color: selectedLi === 3 ? "white" : "inherit",
-                }}
-                onClick={() => handleClick(3)}
-              >
-                10 sec
-              </li>
-            </ul>
-          </div>
+          {isQuizTypeQA && (
+            <div className="clock-timer">
+              <ul>
+                <li className="timer-header">Timer</li>
+                <li
+                  style={{
+                    backgroundColor:
+                      selectedLi === 1 ? "#D60000" : "transparent",
+                    color: selectedLi === 1 ? "white" : "inherit",
+                  }}
+                  onClick={() => handleClick(1)}
+                >
+                  OFF
+                </li>
+                <li
+                  style={{
+                    backgroundColor:
+                      selectedLi === 2 ? "#D60000" : "transparent",
+                    color: selectedLi === 2 ? "white" : "inherit",
+                  }}
+                  onClick={() => handleClick(2)}
+                >
+                  5 sec
+                </li>
+                <li
+                  style={{
+                    backgroundColor:
+                      selectedLi === 3 ? "#D60000" : "transparent",
+                    color: selectedLi === 3 ? "white" : "inherit",
+                  }}
+                  onClick={() => handleClick(3)}
+                >
+                  10 sec
+                </li>
+              </ul>
+            </div>
+          )}
         </div>
       )}
 
@@ -185,38 +190,43 @@ function CreateQuiz() {
               <div className="add-option">Add Option</div>
             </div>
           </div>
-          <div className="clock-timer">
-            <ul>
-              <li className="timer-header">Timer</li>
-              <li
-                style={{
-                  backgroundColor: selectedLi === 1 ? "#D60000" : "transparent",
-                  color: selectedLi === 1 ? "white" : "inherit",
-                }}
-                onClick={() => handleClick(1)}
-              >
-                OFF
-              </li>
-              <li
-                style={{
-                  backgroundColor: selectedLi === 2 ? "#D60000" : "transparent",
-                  color: selectedLi === 2 ? "white" : "inherit",
-                }}
-                onClick={() => handleClick(2)}
-              >
-                5 sec
-              </li>
-              <li
-                style={{
-                  backgroundColor: selectedLi === 3 ? "#D60000" : "transparent",
-                  color: selectedLi === 3 ? "white" : "inherit",
-                }}
-                onClick={() => handleClick(3)}
-              >
-                10 sec
-              </li>
-            </ul>
-          </div>
+          {isQuizTypeQA && (
+            <div className="clock-timer">
+              <ul>
+                <li className="timer-header">Timer</li>
+                <li
+                  style={{
+                    backgroundColor:
+                      selectedLi === 1 ? "#D60000" : "transparent",
+                    color: selectedLi === 1 ? "white" : "inherit",
+                  }}
+                  onClick={() => handleClick(1)}
+                >
+                  OFF
+                </li>
+                <li
+                  style={{
+                    backgroundColor:
+                      selectedLi === 2 ? "#D60000" : "transparent",
+                    color: selectedLi === 2 ? "white" : "inherit",
+                  }}
+                  onClick={() => handleClick(2)}
+                >
+                  5 sec
+                </li>
+                <li
+                  style={{
+                    backgroundColor:
+                      selectedLi === 3 ? "#D60000" : "transparent",
+                    color: selectedLi === 3 ? "white" : "inherit",
+                  }}
+                  onClick={() => handleClick(3)}
+                >
+                  10 sec
+                </li>
+              </ul>
+            </div>
+          )}
         </div>
       )}
 
@@ -276,38 +286,43 @@ function CreateQuiz() {
               </div>
             </div>
           </div>
-          <div className="clock-timer">
-            <ul>
-              <li className="timer-header">Timer</li>
-              <li
-                style={{
-                  backgroundColor: selectedLi === 1 ? "#D60000" : "transparent",
-                  color: selectedLi === 1 ? "white" : "inherit",
-                }}
-                onClick={() => handleClick(1)}
-              >
-                OFF
-              </li>
-              <li
-                style={{
-                  backgroundColor: selectedLi === 2 ? "#D60000" : "transparent",
-                  color: selectedLi === 2 ? "white" : "inherit",
-                }}
-                onClick={() => handleClick(2)}
-              >
-                5 sec
-              </li>
-              <li
-                style={{
-                  backgroundColor: selectedLi === 3 ? "#D60000" : "transparent",
-                  color: selectedLi === 3 ? "white" : "inherit",
-                }}
-                onClick={() => handleClick(3)}
-              >
-                10 sec
-              </li>
-            </ul>
-          </div>
+          {isQuizTypeQA && (
+            <div className="clock-timer">
+              <ul>
+                <li className="timer-header">Timer</li>
+                <li
+                  style={{
+                    backgroundColor:
+                      selectedLi === 1 ? "#D60000" : "transparent",
+                    color: selectedLi === 1 ? "white" : "inherit",
+                  }}
+                  onClick={() => handleClick(1)}
+                >
+                  OFF
+                </li>
+                <li
+                  style={{
+                    backgroundColor:
+                      selectedLi === 2 ? "#D60000" : "transparent",
+                    color: selectedLi === 2 ? "white" : "inherit",
+                  }}
+                  onClick={() => handleClick(2)}
+                >
+                  5 sec
+                </li>
+                <li
+                  style={{
+                    backgroundColor:
+                      selectedLi === 3 ? "#D60000" : "transparent",
+                    color: selectedLi === 3 ? "white" : "inherit",
+                  }}
+                  onClick={() => handleClick(3)}
+                >
+                  10 sec
+                </li>
+              </ul>
+            </div>
+          )}
         </div>
       )}
 

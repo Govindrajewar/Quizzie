@@ -10,6 +10,7 @@ function Dashboard() {
   const [isAnalytics, setIsAnalytics] = useState(false);
   const [isCreateQuiz, setIsCreateQuiz] = useState(true);
   const [isContinue, setIsContinue] = useState(false);
+  const [isQuizTypeQA, setIsQuizTypeQA] = useState(true);
 
   const handleDashboard = () => {
     setIsDashboard(true);
@@ -54,11 +55,13 @@ function Dashboard() {
   };
 
   const addClassToQA = () => {
+    setIsQuizTypeQA(true);
     document.getElementById("QA-Id").classList.add("quizType-select");
     document.getElementById("PT-Id").classList.remove("quizType-select");
   };
 
   const addClassToPT = () => {
+    setIsQuizTypeQA(false);
     document.getElementById("PT-Id").classList.add("quizType-select");
     document.getElementById("QA-Id").classList.remove("quizType-select");
   };
@@ -297,7 +300,7 @@ function Dashboard() {
           </div>
         )}
 
-        {isContinue && <CreateQuiz />}
+        {isContinue && <CreateQuiz isQuizTypeQA={isQuizTypeQA} />}
       </div>
     </div>
   );
