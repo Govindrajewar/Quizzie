@@ -1,0 +1,11 @@
+.inputField input.error {
+  border: 1px solid #d60000;
+}
+
+.inputField input::placeholder {
+  color: #d60000;
+}
+
+.submitBtn:hover {
+  background-color: #007bff;
+}
