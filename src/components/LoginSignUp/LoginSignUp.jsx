@@ -3,19 +3,22 @@ import "../../style/LoginSignUp/LoginSignUp.css";
 
 function LoginSignUp() {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
-  const [selectedItem, setSelectedItem] = useState("");
 
   const handleLogin = () => {
+    document.getElementById("signUpId").classList.remove("selectedItem");
+    document.getElementById("loginId").classList.add("selectedItem");
+
     if (!isLoggingIn) {
       setIsLoggingIn(true);
-      setSelectedItem("login");
     }
   };
 
   const handleSignUp = () => {
+    document.getElementById("loginId").classList.remove("selectedItem");
+    document.getElementById("signUpId").classList.add("selectedItem");
+
     if (isLoggingIn) {
       setIsLoggingIn(false);
-      setSelectedItem("signup");
     }
   };
 
@@ -24,16 +27,10 @@ function LoginSignUp() {
       <div className="loginSignUp-form">
         <div className="mainHeader">QUIZZIE</div>
         <div className="formSelector">
-          <div
-            onClick={handleSignUp}
-            className={selectedItem === "signup" ? "selectedItem" : ""}
-          >
+          <div id="signUpId" onClick={handleSignUp} className="selectedItem">
             Sign Up
           </div>
-          <div
-            onClick={handleLogin}
-            className={selectedItem === "login" ? "selectedItem" : ""}
-          >
+          <div id="loginId" onClick={handleLogin}>
             Log In
           </div>
         </div>
