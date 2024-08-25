@@ -48,10 +48,10 @@
   width: 50%;
   text-align: center;
   border-radius: 10px;
+  cursor: pointer;
 }
 
-.formSelector div:hover {
-  background-color: #ffffff;
+.selectedItem {
   box-shadow: 0px 0px 50px 0px #0019ff3d;
 }
 

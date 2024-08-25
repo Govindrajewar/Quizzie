@@ -1,17 +1,21 @@
 import { useState } from "react";
 import "../../style/LoginSignUp/LoginSignUp.css";
+
 function LoginSignUp() {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [selectedItem, setSelectedItem] = useState("");
 
   const handleLogin = () => {
     if (!isLoggingIn) {
-      setIsLoggingIn(!isLoggingIn);
+      setIsLoggingIn(true);
+      setSelectedItem("login");
     }
   };
 
   const handleSignUp = () => {
     if (isLoggingIn) {
-      setIsLoggingIn(!isLoggingIn);
+      setIsLoggingIn(false);
+      setSelectedItem("signup");
     }
   };
 
@@ -20,8 +24,18 @@ function LoginSignUp() {
       <div className="loginSignUp-form">
         <div className="mainHeader">QUIZZIE</div>
         <div className="formSelector">
-          <div onClick={handleSignUp}>Sign Up</div>
-          <div onClick={handleLogin}>Log In</div>
+          <div
+            onClick={handleSignUp}
+            className={selectedItem === "signup" ? "selectedItem" : ""}
+          >
+            Sign Up
+          </div>
+          <div
+            onClick={handleLogin}
+            className={selectedItem === "login" ? "selectedItem" : ""}
+          >
+            Log In
+          </div>
         </div>
 
         {isLoggingIn ? (
