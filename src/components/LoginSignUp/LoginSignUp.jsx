@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "../../style/LoginSignUp/LoginSignUp.css";
+import SignUp from "./SignUp.jsx";
+import Login from "./Login.jsx";
 
 function LoginSignUp() {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
@@ -35,39 +37,7 @@ function LoginSignUp() {
           </div>
         </div>
 
-        {isLoggingIn ? (
-          <div className="logIn">
-            <div className="inputField">
-              <label htmlFor="">Email</label>
-              <input type="email" />
-            </div>
-            <div className="inputField">
-              <label htmlFor="">Password</label>
-              <input type="password" />
-            </div>
-            <div className="submitBtn">Log in</div>
-          </div>
-        ) : (
-          <div className="signUp">
-            <div className="inputField">
-              <label htmlFor="">Name</label>
-              <input type="text" />
-            </div>
-            <div className="inputField">
-              <label htmlFor="">Email</label>
-              <input type="email" />
-            </div>
-            <div className="inputField">
-              <label htmlFor="">Password</label>
-              <input type="password" />
-            </div>
-            <div className="inputField">
-              <label htmlFor="">Confirm Password</label>
-              <input type="password" />
-            </div>
-            <div className="submitBtn">Sign-Up</div>
-          </div>
-        )}
+        {isLoggingIn ? <Login /> : <SignUp />}
       </div>
     </div>
   );
