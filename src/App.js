@@ -2,6 +2,7 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginSignUp from "./components/LoginSignUp/LoginSignUp";
 import Dashboard from "./components/Dashboard/Dashboard";
+import QuizInterface from "./components/QuizInterface/QuizInterface.jsx";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LoginSignUp />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/quiz" element={<QuizInterface />} />
         </Routes>
       </BrowserRouter>
     </div>
