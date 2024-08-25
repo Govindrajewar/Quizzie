@@ -65,7 +65,6 @@
   width: 25%;
   text-align: center;
   cursor: pointer;
-
 }
 
 .QuizInterface-next-btn {
@@ -79,9 +78,32 @@
   margin-top: 20px;
   width: 20%;
   text-align: center;
-
 }
 
 .selected-option {
   border: 5px solid #3085d6;
+}
+
+.QuizInterface-completion-message {
+  height: 80vh;
+  width: 85vw;
+  background-color: white;
+  color: #474444;
+  font-size: 40px;
+  font-weight: 700;
+  border-radius: 15px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.QuizInterface-scorecard {
+  color: #60b84b;
 }

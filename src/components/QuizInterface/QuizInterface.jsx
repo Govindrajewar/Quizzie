@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import "../../style/QuizInterface/QuizInterface.css";
+import trophy from "../../assets/QuizInterface/trophy.png";
 
 function QuizInterface() {
   const [selectedOption, setSelectedOption] = useState(null);
   const [questionNumber, setQuestionNumber] = useState(0);
+  const [isQuizCompleted, setIsQuizCompleted] = useState(false);
 
   const questions = [
     "Your question text comes here, it's a sample text 1.",
@@ -28,8 +30,7 @@ function QuizInterface() {
       setQuestionNumber((prevNumber) => prevNumber + 1);
       setSelectedOption(null); // Reset the selected option for the next question
     } else {
-      // Handle the "Submit" action here
-      alert("Quiz submitted!");
+      setIsQuizCompleted(true);
     }
   };
 
@@ -62,9 +63,21 @@ function QuizInterface() {
         </div>
 
         <div className="QuizInterface-next-btn" onClick={handleNextClick}>
-          {questionNumber < questions.length - 1 ? "NEXT" : "Submit"}
+          {questionNumber < questions.length - 1 ? "NEXT" : "SUBMIT"}
         </div>
       </div>
+
+      {isQuizCompleted && (
+        <div className="QuizInterface-completion-message">
+          <div className="QuizInterface-completion-header">
+            Congrats Quiz is completed
+          </div>
+          <img src={trophy} alt="trophy" />
+          <div className="QuizInterface-completion-scorecard">
+            Your Score is <span className="QuizInterface-scorecard">03/04</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
