@@ -5,7 +5,7 @@ function CreateQuiz({
   isQuizTypeQA,
   setIsContinue,
   setIsShareQuizLink,
-  setIsCreateQuiz
+  setIsCreateQuiz,
 }) {
   const [selectedOption, setSelectedOption] = useState(null);
 
@@ -14,6 +14,10 @@ function CreateQuiz({
   const [isImageOptions, setIsImageOptions] = useState(false);
   const [isTextImageOptions, setIsTextImageOptions] = useState(false);
   const [questionNumbers, setQuestionNumbers] = useState([1]);
+
+  const [textOptions, setTextOptions] = useState([1, 2]);
+  const [imageOptions, setImageOptions] = useState([1, 2]);
+  const [textImageOptions, setTextImageOptions] = useState([1, 2]);
 
   const handleTextOptions = () => {
     setIsTextOptions(true);
@@ -53,6 +57,25 @@ function CreateQuiz({
     }
   };
 
+  // Functions to handle adding options
+  const handleAddTextOption = () => {
+    if (textOptions.length < 4) {
+      setTextOptions([...textOptions, textOptions.length + 1]);
+    }
+  };
+
+  const handleAddImageOption = () => {
+    if (imageOptions.length < 4) {
+      setImageOptions([...imageOptions, imageOptions.length + 1]);
+    }
+  };
+
+  const handleAddTextImageOption = () => {
+    if (textImageOptions.length < 4) {
+      setTextImageOptions([...textImageOptions, textImageOptions.length + 1]);
+    }
+  };
+
   return (
     <div className="Create-Quiz">
       <div className="create-quiz-header">
@@ -80,7 +103,7 @@ function CreateQuiz({
           <div>Option Type</div>
 
           <div onClick={handleTextOptions}>
-            <input type="radio" name="optionType" id="textId" />
+            <input type="radio" name="optionType" id="textId" defaultChecked />
             <label htmlFor="textId">Text</label>
           </div>
           <br />
@@ -104,18 +127,18 @@ function CreateQuiz({
         <div className="add-options">
           <div className="option-list">
             <div className="answerOptions">
-              {[1, 2, 3, 4].map((option) => (
+              {textOptions.map((option) => (
                 <div key={option} style={{ marginBottom: "10px" }}>
                   <input
                     type="radio"
-                    id={`answer-option-${option}`}
+                    id={`text-option-${option}`}
                     name="answerOption"
                     value={option}
                     checked={selectedOption === option}
                     onChange={() => handleOptionChange(option)}
                   />
                   <label
-                    htmlFor={`answer-option-${option}`}
+                    htmlFor={`text-option-${option}`}
                     style={{
                       display: "inline-block",
                       marginLeft: "10px",
@@ -134,7 +157,11 @@ function CreateQuiz({
                   </label>
                 </div>
               ))}
-              <div className="add-option">Add Option</div>
+              {textOptions.length < 4 && (
+                <div className="add-option" onClick={handleAddTextOption}>
+                  Add Option
+                </div>
+              )}
             </div>
           </div>
           {isQuizTypeQA && (
@@ -182,18 +209,18 @@ function CreateQuiz({
         <div className="add-options">
           <div className="option-list">
             <div className="answerOptions">
-              {[1, 2, 3, 4].map((option) => (
+              {imageOptions.map((option) => (
                 <div key={option} style={{ marginBottom: "10px" }}>
                   <input
                     type="radio"
-                    id={`answer-option-${option}`}
+                    id={`image-option-${option}`}
                     name="answerOption"
                     value={option}
                     checked={selectedOption === option}
                     onChange={() => handleOptionChange(option)}
                   />
                   <label
-                    htmlFor={`answer-option-${option}`}
+                    htmlFor={`image-option-${option}`}
                     style={{
                       display: "inline-block",
                       marginLeft: "10px",
@@ -201,7 +228,7 @@ function CreateQuiz({
                   >
                     <input
                       type="text"
-                      placeholder="image URL"
+                      placeholder="Image URL"
                       style={{
                         backgroundColor:
                           selectedOption === option ? "#60B84B" : "transparent",
@@ -212,7 +239,11 @@ function CreateQuiz({
                   </label>
                 </div>
               ))}
-              <div className="add-option">Add Option</div>
+              {imageOptions.length < 4 && (
+                <div className="add-option" onClick={handleAddImageOption}>
+                  Add Option
+                </div>
+              )}
             </div>
           </div>
           {isQuizTypeQA && (
@@ -260,18 +291,18 @@ function CreateQuiz({
         <div className="add-options">
           <div className="option-list">
             <div className="answerOptions">
-              {[1, 2, 3, 4].map((option) => (
+              {textImageOptions.map((option) => (
                 <div key={option} style={{ marginBottom: "10px" }}>
                   <input
                     type="radio"
-                    id={`answer-option-${option}`}
+                    id={`text-image-option-${option}`}
                     name="answerOption"
                     value={option}
                     checked={selectedOption === option}
                     onChange={() => handleOptionChange(option)}
                   />
                   <label
-                    htmlFor={`answer-option-${option}`}
+                    htmlFor={`text-image-option-${option}`}
                     style={{
                       display: "inline-block",
                       marginLeft: "10px",
@@ -284,9 +315,8 @@ function CreateQuiz({
                         backgroundColor:
                           selectedOption === option ? "#60B84B" : "transparent",
                         color: selectedOption === option ? "white" : "black",
-                        width: "30%",
+                        width: "45%",
                         display: "inline-block",
-                        marginLeft: "10px",
                       }}
                     />
                     <input
@@ -296,19 +326,22 @@ function CreateQuiz({
                         backgroundColor:
                           selectedOption === option ? "#60B84B" : "transparent",
                         color: selectedOption === option ? "white" : "black",
-                        width: "40%",
-                        marginLeft: "10%",
+                        width: "45%",
+                        marginLeft: "10px",
                       }}
                     />
                   </label>
                 </div>
               ))}
-              <div
-                className="add-option"
-                style={{ width: "40%", marginLeft: "7%" }}
-              >
-                Add Option
-              </div>
+              {textImageOptions.length < 4 && (
+                <div
+                  className="add-option"
+                  style={{ width: "40%", marginLeft: "7%" }}
+                  onClick={handleAddTextImageOption}
+                >
+                  Add Option
+                </div>
+              )}
             </div>
           </div>
           {isQuizTypeQA && (
@@ -356,10 +389,7 @@ function CreateQuiz({
         <div className="cancel-btn" onClick={() => setIsContinue(false)}>
           Cancel
         </div>
-        <div
-          className="continue-btn"
-          onClick={handleShareQuizLink}
-        >
+        <div className="continue-btn" onClick={handleShareQuizLink}>
           Create Quiz
         </div>
       </div>

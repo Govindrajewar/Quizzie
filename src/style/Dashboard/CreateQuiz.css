@@ -1,8 +1,9 @@
 .Create-Quiz {
-  height: 90vh;
+  /* height: 90vh; */
   width: 80vw;
   background-color: #ffffff;
   border-radius: 10px;
+  padding: 20px;
 
   position: absolute;
   top: 50%;
@@ -117,6 +118,7 @@
   justify-content: space-between;
 
   width: 75%;
+  padding: 20px 0;
   padding-right: 10%;
 }
 
@@ -168,7 +170,6 @@
   text-align: center;
   box-shadow: 0px 0px 25px 0px #00000026;
   margin-left: 10%;
-  width: 90%;
   border-radius: 10px;
   cursor: pointer;
 }
