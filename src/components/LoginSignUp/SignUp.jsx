@@ -28,7 +28,19 @@ function SignUp() {
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      console.log({ name, email, password, confirmPassword });
+      const userData = { name, email, password };
+
+      const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
+      const userExists = existingUsers.some((user) => user.email === email);
+
+      if (userExists) {
+        alert("User already exists");
+        return;
+      }
+
+      existingUsers.push(userData);
+      localStorage.setItem("users", JSON.stringify(existingUsers));
+
       alert("Signed Up Successfully");
 
       setName("");
