@@ -13,6 +13,7 @@ function CreateQuiz({
   const [isTextOptions, setIsTextOptions] = useState(true);
   const [isImageOptions, setIsImageOptions] = useState(false);
   const [isTextImageOptions, setIsTextImageOptions] = useState(false);
+  const [questionNumbers, setQuestionNumbers] = useState([1]);
 
   const handleTextOptions = () => {
     setIsTextOptions(true);
@@ -46,14 +47,27 @@ function CreateQuiz({
     setIsCreateQuiz(false);
   };
 
+  const handleAddQuestion = () => {
+    if (questionNumbers.length < 5) {
+      setQuestionNumbers([...questionNumbers, questionNumbers.length + 1]);
+    }
+  };
+
   return (
     <div className="Create-Quiz">
       <div className="create-quiz-header">
         <div className="question-header">
           <div className="question-numbers">
-            <div className="question-no-1">1</div>
-            <div className="question-no-2">2</div>
-            <div className="question-no-add">+</div>
+            {questionNumbers.map((number) => (
+              <div key={number} className={`question-number`}>
+                {number}
+              </div>
+            ))}
+            {questionNumbers.length < 5 && (
+              <div className="question-no-add" onClick={handleAddQuestion}>
+                +
+              </div>
+            )}
           </div>
           <div className="max-question">Max 5 questions</div>
         </div>
@@ -67,21 +81,21 @@ function CreateQuiz({
 
           <div onClick={handleTextOptions}>
             <input type="radio" name="optionType" id="textId" />
-            <label for="textId">Text</label>
+            <label htmlFor="textId">Text</label>
           </div>
-          <br></br>
+          <br />
 
           <div onClick={handleImageOptions}>
             <input type="radio" name="optionType" id="imageId" />
-            <label for="imageId">Image URL</label>
+            <label htmlFor="imageId">Image URL</label>
           </div>
-          <br></br>
+          <br />
 
           <div onClick={handleTextImageOptions}>
             <input type="radio" name="optionType" id="textImageId" />
-            <label for="textImageId">Text & Image URL</label>
+            <label htmlFor="textImageId">Text & Image URL</label>
           </div>
-          <br></br>
+          <br />
         </div>
       </div>
 

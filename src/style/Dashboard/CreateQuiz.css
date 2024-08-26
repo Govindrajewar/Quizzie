@@ -15,8 +15,7 @@
   justify-content: space-between;
 }
 
-.question-no-1,
-.question-no-2,
+.question-number,
 .question-no-add {
   border-radius: 50%;
   height: 40px;
