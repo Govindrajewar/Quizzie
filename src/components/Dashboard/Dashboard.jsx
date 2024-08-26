@@ -15,6 +15,9 @@ function Dashboard() {
   const [isQuizTypeQA, setIsQuizTypeQA] = useState(true);
   const [isShareQuizLink, setIsShareQuizLink] = useState(false);
 
+  const [quizName, setQuizName] = useState("");
+  const [quizType, setQuizType] = useState("Q&A");
+
   const handleDashboard = () => {
     setIsDashboard(true);
     setIsAnalytics(false);
@@ -59,14 +62,31 @@ function Dashboard() {
 
   const addClassToQA = () => {
     setIsQuizTypeQA(true);
+    setQuizType("Q&A");
     document.getElementById("QA-Id").classList.add("quizType-select");
     document.getElementById("PT-Id").classList.remove("quizType-select");
   };
 
   const addClassToPT = () => {
     setIsQuizTypeQA(false);
+    setQuizType("Poll Type");
     document.getElementById("PT-Id").classList.add("quizType-select");
     document.getElementById("QA-Id").classList.remove("quizType-select");
+  };
+
+  const handleContinue = () => {
+    if (quizName.trim() === "") {
+      alert("Please enter a quiz name.");
+      return;
+    }
+
+    if (!isQuizTypeQA && quizType !== "Poll Type") {
+      alert("Please select a quiz type.");
+      return;
+    }
+
+    console.log("Quiz Name:", quizName + " Quiz Type:", quizType);
+    setIsContinue(true);
   };
 
   return (
@@ -269,6 +289,8 @@ function Dashboard() {
                 name="quizName"
                 id="quizName"
                 placeholder="Quiz name"
+                value={quizName}
+                onChange={(e) => setQuizName(e.target.value)}
               />
               <div className="quizType">
                 <div className="quiz-type-select">Quiz Type</div>
@@ -293,7 +315,7 @@ function Dashboard() {
                 </div>
                 <div
                   className="continue-btn"
-                  onClick={() => setIsContinue(true)}
+                  onClick={handleContinue}
                 >
                   Continue
                 </div>
