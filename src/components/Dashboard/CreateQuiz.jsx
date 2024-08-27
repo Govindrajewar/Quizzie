@@ -57,6 +57,10 @@ function CreateQuiz({
     }
   };
 
+  const handleDeleteQuestion = (number) => {
+    setQuestionNumbers(questionNumbers.filter((n) => n !== number));
+  };
+
   // Functions to handle adding options
   const handleAddTextOption = () => {
     if (textOptions.length < 4) {
@@ -84,6 +88,22 @@ function CreateQuiz({
             {questionNumbers.map((number) => (
               <div key={number} className={`question-number`}>
                 {number}
+                {number > 1 && (
+                  <span
+                    className="delete-question"
+                    onClick={() => handleDeleteQuestion(number)}
+                    style={{
+                      cursor: "pointer",
+                      color: "#474444",
+                      position: "relative",
+                      top: "-30px",
+                      right: "-5px",
+                      fontSize: "20px",
+                    }}
+                  >
+                    ×
+                  </span>
+                )}
               </div>
             ))}
             {questionNumbers.length < 5 && (
