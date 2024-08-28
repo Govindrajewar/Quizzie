@@ -8,16 +8,34 @@ function CreateQuiz({
   setIsCreateQuiz,
 }) {
   const [selectedOption, setSelectedOption] = useState(null);
-
-  const [selectedLi, setSelectedLi] = useState(null);
+  const [selectedLi, setSelectedLi] = useState(1);
   const [isTextOptions, setIsTextOptions] = useState(true);
   const [isImageOptions, setIsImageOptions] = useState(false);
   const [isTextImageOptions, setIsTextImageOptions] = useState(false);
   const [questionNumbers, setQuestionNumbers] = useState([1]);
 
+  const [questionInput, setQuestionInput] = useState("");
   const [textOptions, setTextOptions] = useState([1, 2]);
   const [imageOptions, setImageOptions] = useState([1, 2]);
   const [textImageOptions, setTextImageOptions] = useState([1, 2]);
+
+  const [questionsData, setQuestionsData] = useState([]); // State to store all questions data
+  const [storedData, setStoredData] = useState(null);
+
+  const isQuestionComplete = () => {
+    const optionsNotEmpty = isTextOptions
+      ? textOptions.every((option) => option.trim() !== "")
+      : isImageOptions
+      ? imageOptions.every((option) => option.trim() !== "")
+      : textImageOptions.every((option) => option.trim() !== ""); // Assuming textImageOptions is an array of objects or values
+
+    return (
+      questionInput !== "" &&
+      selectedOption !== null &&
+      selectedLi !== null &&
+      optionsNotEmpty
+    );
+  };
 
   const handleTextOptions = () => {
     setIsTextOptions(true);
@@ -46,37 +64,72 @@ function CreateQuiz({
   };
 
   const handleShareQuizLink = () => {
-    setIsContinue(false);
-    setIsShareQuizLink(true);
-    setIsCreateQuiz(false);
+    if (questionsData.length > 0) {
+      localStorage.setItem("quizData", JSON.stringify(questionsData));
+      setStoredData(questionsData); // Display stored data
+      setIsContinue(false);
+      setIsShareQuizLink(true);
+      setIsCreateQuiz(false);
+    } else {
+      alert("Please add at least one question before creating the quiz.");
+    }
   };
 
   const handleAddQuestion = () => {
-    if (questionNumbers.length < 5) {
-      setQuestionNumbers([...questionNumbers, questionNumbers.length + 1]);
+    if (isQuestionComplete()) {
+      const newQuestionData = {
+        question: questionInput,
+        optionType: isTextOptions
+          ? "Text"
+          : isImageOptions
+          ? "Image"
+          : "Text & Image",
+        answerOptions: isTextOptions
+          ? textOptions
+          : isImageOptions
+          ? imageOptions
+          : textImageOptions,
+        correctAnswer: selectedOption,
+        timer: selectedLi === 1 ? "OFF" : selectedLi === 2 ? "5 sec" : "10 sec",
+      };
+
+      setQuestionsData([...questionsData, newQuestionData]);
+
+      if (questionNumbers.length < 5) {
+        setQuestionNumbers([...questionNumbers, questionNumbers.length + 1]);
+        setQuestionInput("");
+        setSelectedOption(null);
+        setSelectedLi(null);
+        setIsTextOptions(true);
+        setTextOptions([1, 2]);
+        setImageOptions([1, 2]);
+        setTextImageOptions([1, 2]);
+      }
+    } else {
+      alert("Please complete all fields before adding a new question.");
     }
   };
 
   const handleDeleteQuestion = (number) => {
     setQuestionNumbers(questionNumbers.filter((n) => n !== number));
+    setQuestionsData(questionsData.filter((_, index) => index !== number - 1));
   };
 
-  // Functions to handle adding options
   const handleAddTextOption = () => {
     if (textOptions.length < 4) {
-      setTextOptions([...textOptions, textOptions.length + 1]);
+      setTextOptions([...textOptions, ""]); // Adding empty string as placeholder
     }
   };
 
   const handleAddImageOption = () => {
     if (imageOptions.length < 4) {
-      setImageOptions([...imageOptions, imageOptions.length + 1]);
+      setImageOptions([...imageOptions, ""]); // Adding empty string as placeholder
     }
   };
 
   const handleAddTextImageOption = () => {
     if (textImageOptions.length < 4) {
-      setTextImageOptions([...textImageOptions, textImageOptions.length + 1]);
+      setTextImageOptions([...textImageOptions, ""]); // Adding empty string as placeholder
     }
   };
 
@@ -116,7 +169,12 @@ function CreateQuiz({
         </div>
 
         <div className="question-input">
-          <input type="text" placeholder="Poll Question" />
+          <input
+            type="text"
+            placeholder="Poll Question"
+            value={questionInput}
+            onChange={(e) => setQuestionInput(e.target.value)}
+          />
         </div>
 
         <div className="optionType">
@@ -147,18 +205,18 @@ function CreateQuiz({
         <div className="add-options">
           <div className="option-list">
             <div className="answerOptions">
-              {textOptions.map((option) => (
-                <div key={option} style={{ marginBottom: "10px" }}>
+              {textOptions.map((option, index) => (
+                <div key={index} style={{ marginBottom: "10px" }}>
                   <input
                     type="radio"
-                    id={`text-option-${option}`}
+                    id={`text-option-${index + 1}`}
                     name="answerOption"
-                    value={option}
-                    checked={selectedOption === option}
-                    onChange={() => handleOptionChange(option)}
+                    value={index + 1}
+                    checked={selectedOption === index + 1}
+                    onChange={() => handleOptionChange(index + 1)}
                   />
                   <label
-                    htmlFor={`text-option-${option}`}
+                    htmlFor={`text-option-${index + 1}`}
                     style={{
                       display: "inline-block",
                       marginLeft: "10px",
@@ -167,10 +225,18 @@ function CreateQuiz({
                     <input
                       type="text"
                       placeholder="Text"
+                      value={option}
+                      onChange={(e) => {
+                        const newOptions = [...textOptions];
+                        newOptions[index] = e.target.value;
+                        setTextOptions(newOptions);
+                      }}
                       style={{
                         backgroundColor:
-                          selectedOption === option ? "#60B84B" : "transparent",
-                        color: selectedOption === option ? "white" : "black",
+                          selectedOption === index + 1
+                            ? "#60B84B"
+                            : "transparent",
+                        color: selectedOption === index + 1 ? "white" : "black",
                         width: "100%",
                       }}
                     />
@@ -229,18 +295,18 @@ function CreateQuiz({
         <div className="add-options">
           <div className="option-list">
             <div className="answerOptions">
-              {imageOptions.map((option) => (
-                <div key={option} style={{ marginBottom: "10px" }}>
+              {imageOptions.map((option, index) => (
+                <div key={index} style={{ marginBottom: "10px" }}>
                   <input
                     type="radio"
-                    id={`image-option-${option}`}
+                    id={`image-option-${index + 1}`}
                     name="answerOption"
-                    value={option}
-                    checked={selectedOption === option}
-                    onChange={() => handleOptionChange(option)}
+                    value={index + 1}
+                    checked={selectedOption === index + 1}
+                    onChange={() => handleOptionChange(index + 1)}
                   />
                   <label
-                    htmlFor={`image-option-${option}`}
+                    htmlFor={`image-option-${index + 1}`}
                     style={{
                       display: "inline-block",
                       marginLeft: "10px",
@@ -249,10 +315,18 @@ function CreateQuiz({
                     <input
                       type="text"
                       placeholder="Image URL"
+                      value={option}
+                      onChange={(e) => {
+                        const newOptions = [...imageOptions];
+                        newOptions[index] = e.target.value;
+                        setImageOptions(newOptions);
+                      }}
                       style={{
                         backgroundColor:
-                          selectedOption === option ? "#60B84B" : "transparent",
-                        color: selectedOption === option ? "white" : "black",
+                          selectedOption === index + 1
+                            ? "#60B84B"
+                            : "transparent",
+                        color: selectedOption === index + 1 ? "white" : "black",
                         width: "100%",
                       }}
                     />
@@ -306,23 +380,23 @@ function CreateQuiz({
         </div>
       )}
 
-      {/* Text & Image URL Options */}
+      {/* Text & Image Options */}
       {isTextImageOptions && (
         <div className="add-options">
           <div className="option-list">
             <div className="answerOptions">
-              {textImageOptions.map((option) => (
-                <div key={option} style={{ marginBottom: "10px" }}>
+              {textImageOptions.map((option, index) => (
+                <div key={index} style={{ marginBottom: "10px" }}>
                   <input
                     type="radio"
-                    id={`text-image-option-${option}`}
+                    id={`text-image-option-${index + 1}`}
                     name="answerOption"
-                    value={option}
-                    checked={selectedOption === option}
-                    onChange={() => handleOptionChange(option)}
+                    value={index + 1}
+                    checked={selectedOption === index + 1}
+                    onChange={() => handleOptionChange(index + 1)}
                   />
                   <label
-                    htmlFor={`text-image-option-${option}`}
+                    htmlFor={`text-image-option-${index + 1}`}
                     style={{
                       display: "inline-block",
                       marginLeft: "10px",
@@ -330,35 +404,27 @@ function CreateQuiz({
                   >
                     <input
                       type="text"
-                      placeholder="Text"
-                      style={{
-                        backgroundColor:
-                          selectedOption === option ? "#60B84B" : "transparent",
-                        color: selectedOption === option ? "white" : "black",
-                        width: "45%",
-                        display: "inline-block",
+                      placeholder="Text/Image URL"
+                      value={option}
+                      onChange={(e) => {
+                        const newOptions = [...textImageOptions];
+                        newOptions[index] = e.target.value;
+                        setTextImageOptions(newOptions);
                       }}
-                    />
-                    <input
-                      type="text"
-                      placeholder="image URL"
                       style={{
                         backgroundColor:
-                          selectedOption === option ? "#60B84B" : "transparent",
-                        color: selectedOption === option ? "white" : "black",
-                        width: "45%",
-                        marginLeft: "10px",
+                          selectedOption === index + 1
+                            ? "#60B84B"
+                            : "transparent",
+                        color: selectedOption === index + 1 ? "white" : "black",
+                        width: "100%",
                       }}
                     />
                   </label>
                 </div>
               ))}
               {textImageOptions.length < 4 && (
-                <div
-                  className="add-option"
-                  style={{ width: "40%", marginLeft: "7%" }}
-                  onClick={handleAddTextImageOption}
-                >
+                <div className="add-option" onClick={handleAddTextImageOption}>
                   Add Option
                 </div>
               )}
@@ -413,6 +479,14 @@ function CreateQuiz({
           Create Quiz
         </div>
       </div>
+
+      {/* Display Stored Data */}
+      {storedData && (
+        <div className="stored-data">
+          <h3>Stored Quiz Data</h3>
+          <pre>{JSON.stringify(storedData, null, 2)}</pre>
+        </div>
+      )}
     </div>
   );
 }
