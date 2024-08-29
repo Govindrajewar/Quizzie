@@ -15,9 +15,9 @@ function CreateQuiz({
   const [questionNumbers, setQuestionNumbers] = useState([1]);
 
   const [questionInput, setQuestionInput] = useState("");
-  const [textOptions, setTextOptions] = useState([1, 2]);
-  const [imageOptions, setImageOptions] = useState([1, 2]);
-  const [textImageOptions, setTextImageOptions] = useState([1, 2]);
+  const [textOptions, setTextOptions] = useState(["", ""]);
+  const [imageOptions, setImageOptions] = useState(["", ""]);
+  const [textImageOptions, setTextImageOptions] = useState(["", ""]);
 
   const [questionsData, setQuestionsData] = useState([]); // State to store all questions data
   const [storedData, setStoredData] = useState(null);
@@ -101,9 +101,9 @@ function CreateQuiz({
         setSelectedOption(null);
         setSelectedLi(null);
         setIsTextOptions(true);
-        setTextOptions([1, 2]);
-        setImageOptions([1, 2]);
-        setTextImageOptions([1, 2]);
+        setTextOptions(["", ""]);
+        setImageOptions(["", ""]);
+        setTextImageOptions(["", ""]);
       }
     } else {
       alert("Please complete all fields before adding a new question.");
