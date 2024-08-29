@@ -95,18 +95,36 @@ function CreateQuiz({
 
       setQuestionsData([...questionsData, newQuestionData]);
 
-      if (questionNumbers.length < 5) {
-        setQuestionNumbers([...questionNumbers, questionNumbers.length + 1]);
-        setQuestionInput("");
-        setSelectedOption(null);
-        setSelectedLi(null);
-        setIsTextOptions(true);
+      // Reset states for new question
+      setQuestionInput("");
+      setSelectedOption(null);
+      setSelectedLi(null);
+
+      if (isTextOptions) {
+        setTextOptions(["", ""]);
+        setImageOptions(["", ""]);
+        setTextImageOptions(["", ""]);
+      } else if (isImageOptions) {
+        setTextOptions(["", ""]);
+        setImageOptions(["", ""]);
+        setTextImageOptions(["", ""]);
+      } else if (isTextImageOptions) {
         setTextOptions(["", ""]);
         setImageOptions(["", ""]);
         setTextImageOptions(["", ""]);
       }
+
+      if (questionNumbers.length < 5) {
+        setQuestionNumbers([...questionNumbers, questionNumbers.length + 1]);
+      }
     } else {
-      alert("Please complete all fields before adding a new question.");
+      alert(
+        "Validation Errors:\n" +
+          "Question is required.\n" +
+          "Option type is required.\n" +
+          "You must enter all options.\n" +
+          "You must select a correct answer."
+      );
     }
   };
 
@@ -403,8 +421,8 @@ function CreateQuiz({
                     }}
                   >
                     <input
-                      type="text"
-                      placeholder="Text/Image URL"
+                      type="url"
+                      placeholder="Text & Image URL"
                       value={option}
                       onChange={(e) => {
                         const newOptions = [...textImageOptions];
