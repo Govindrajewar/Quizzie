@@ -6,9 +6,11 @@ function CreateQuiz({
   setIsContinue,
   setIsShareQuizLink,
   setIsCreateQuiz,
+  quizName,
+  quizType,
 }) {
   const [selectedOption, setSelectedOption] = useState(null);
-  const [selectedLi, setSelectedLi] = useState(1);
+  const [selectedLi, setSelectedLi] = useState();
   const [isTextOptions, setIsTextOptions] = useState(true);
   const [isImageOptions, setIsImageOptions] = useState(false);
   const [isTextImageOptions, setIsTextImageOptions] = useState(false);
@@ -27,7 +29,7 @@ function CreateQuiz({
       ? textOptions.every((option) => option.trim() !== "")
       : isImageOptions
       ? imageOptions.every((option) => option.trim() !== "")
-      : textImageOptions.every((option) => option.trim() !== ""); // Assuming textImageOptions is an array of objects or values
+      : textImageOptions.every((option) => option.trim() !== "");
 
     return (
       questionInput !== "" &&
@@ -65,8 +67,20 @@ function CreateQuiz({
 
   const handleShareQuizLink = () => {
     if (questionsData.length > 0) {
-      localStorage.setItem("quizData", JSON.stringify(questionsData));
-      setStoredData(questionsData); // Display stored data
+      const newQuizData = {
+        quizName,
+        quizType,
+        questions: questionsData,
+      };
+
+      const existingQuizzes =
+        JSON.parse(localStorage.getItem("quizData")) || [];
+
+      const updatedQuizzes = [...existingQuizzes, newQuizData];
+
+      localStorage.setItem("quizData", JSON.stringify(updatedQuizzes));
+
+      setStoredData(updatedQuizzes);
       setIsContinue(false);
       setIsShareQuizLink(true);
       setIsCreateQuiz(false);
@@ -123,7 +137,8 @@ function CreateQuiz({
           "Question is required.\n" +
           "Option type is required.\n" +
           "You must enter all options.\n" +
-          "You must select a correct answer."
+          "You must select a correct answer.\n" +
+          "You must select a Timer."
       );
     }
   };
@@ -369,19 +384,42 @@ function CreateQuiz({
                     htmlFor={`text-image-option-${index + 1}`}
                     className="option-label"
                   >
-                    <input
-                      type="url"
-                      placeholder="Text & Image URL"
-                      value={option}
-                      onChange={(e) => {
-                        const newOptions = [...textImageOptions];
-                        newOptions[index] = e.target.value;
-                        setTextImageOptions(newOptions);
-                      }}
-                      className={`option-input ${
-                        selectedOption === index + 1 ? "selected" : ""
-                      }`}
-                    />
+                    <div>
+                      <input
+                        type="text"
+                        placeholder="Text"
+                        value={option.text || ""}
+                        onChange={(e) => {
+                          const newOptions = [...textImageOptions];
+                          newOptions[index] = {
+                            ...newOptions[index],
+                            text: e.target.value,
+                          };
+                          setTextImageOptions(newOptions);
+                        }}
+                        className={`option-input ${
+                          selectedOption === index + 1 ? "selected" : ""
+                        }`}
+                      />
+                    </div>
+                    <div>
+                      <input
+                        type="text"
+                        placeholder="Image URL"
+                        value={option.image || ""}
+                        onChange={(e) => {
+                          const newOptions = [...textImageOptions];
+                          newOptions[index] = {
+                            ...newOptions[index],
+                            image: e.target.value,
+                          };
+                          setTextImageOptions(newOptions);
+                        }}
+                        className={`option-input ${
+                          selectedOption === index + 1 ? "selected" : ""
+                        }`}
+                      />
+                    </div>
                   </label>
                 </div>
               ))}

@@ -86,6 +86,19 @@ function Dashboard() {
       return;
     }
 
+    // Retrieve existing quizzes from local storage
+    const existingQuizzes = JSON.parse(localStorage.getItem("quizData")) || [];
+
+    // Check if the quiz name already exists
+    const quizExists = existingQuizzes.some(
+      (quiz) => quiz.quizName === quizName
+    );
+
+    if (quizExists) {
+      alert("Quiz name already exists. Please choose a different name.");
+      return;
+    }
+
     console.log("Quiz Name:", quizName + " Quiz Type:", quizType);
     setIsContinue(true);
   };
@@ -330,6 +343,8 @@ function Dashboard() {
             setIsContinue={setIsContinue}
             setIsShareQuizLink={setIsShareQuizLink}
             setIsCreateQuiz={setIsCreateQuiz}
+            quizName={quizName}
+            quizType={quizType}
           />
         )}
         {isShareQuizLink && (
