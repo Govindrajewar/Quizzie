@@ -3,13 +3,17 @@ import "../../style/Dashboard/ShareQuizLink.css";
 import done from "../../assets/CreateQuiz/done.png";
 
 function ShareQuizLink({ setIsShareQuizLink }) {
+  const sharableLink = "http://localhost:3000/quiz";
+
   const [isShareLink, setIsShareLink] = useState(false);
   const [isCloseLink, setIsCloseLink] = useState(true);
 
   const handleShareLink = () => {
     setIsShareLink(true);
     setIsCloseLink(false);
-    navigator.clipboard.writeText("your link is here");
+
+    const urlToCopy = document.querySelector(".your-link").textContent;
+    navigator.clipboard.writeText(urlToCopy);
 
     setTimeout(() => {
       setIsShareLink(false);
@@ -37,7 +41,9 @@ function ShareQuizLink({ setIsShareQuizLink }) {
   return (
     <div className="ShareQuizLink">
       <div className="greeting-message">Congrats your Quiz is Published!</div>
-      <div className="your-link">your link is here</div>
+      <div className="your-link" onClick={handleShareLink}>
+        {sharableLink}
+      </div>
       <div className="share-link-btn" onClick={handleShareLink}>
         Share
       </div>
