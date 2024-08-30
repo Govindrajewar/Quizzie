@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../../style/Dashboard/CreateQuiz.css";
+import ClockTimer from "./ClockTimer";
 
 function CreateQuiz({
   isQuizTypeQA,
@@ -21,7 +22,7 @@ function CreateQuiz({
   const [imageOptions, setImageOptions] = useState(["", ""]);
   const [textImageOptions, setTextImageOptions] = useState(["", ""]);
 
-  const [questionsData, setQuestionsData] = useState([]); // State to store all questions data
+  const [questionsData, setQuestionsData] = useState([]);
   const [storedData, setStoredData] = useState(null);
 
   const isQuestionComplete = () => {
@@ -43,18 +44,21 @@ function CreateQuiz({
     setIsTextOptions(true);
     setIsImageOptions(false);
     setIsTextImageOptions(false);
+    setSelectedOption(null);
   };
 
   const handleImageOptions = () => {
     setIsTextOptions(false);
     setIsImageOptions(true);
     setIsTextImageOptions(false);
+    setSelectedOption(null);
   };
 
   const handleTextImageOptions = () => {
     setIsTextOptions(false);
     setIsImageOptions(false);
     setIsTextImageOptions(true);
+    setSelectedOption(null);
   };
 
   const handleClick = (index) => {
@@ -150,19 +154,19 @@ function CreateQuiz({
 
   const handleAddTextOption = () => {
     if (textOptions.length < 4) {
-      setTextOptions([...textOptions, ""]); // Adding empty string as placeholder
+      setTextOptions([...textOptions, ""]);
     }
   };
 
   const handleAddImageOption = () => {
     if (imageOptions.length < 4) {
-      setImageOptions([...imageOptions, ""]); // Adding empty string as placeholder
+      setImageOptions([...imageOptions, ""]);
     }
   };
 
   const handleAddTextImageOption = () => {
     if (textImageOptions.length < 4) {
-      setTextImageOptions([...textImageOptions, ""]); // Adding empty string as placeholder
+      setTextImageOptions([...textImageOptions, ""]);
     }
   };
 
@@ -268,29 +272,7 @@ function CreateQuiz({
             </div>
           </div>
           {isQuizTypeQA && (
-            <div className="clock-timer">
-              <ul>
-                <li className="timer-header">Timer</li>
-                <li
-                  className={selectedLi === 1 ? "selected" : ""}
-                  onClick={() => handleClick(1)}
-                >
-                  OFF
-                </li>
-                <li
-                  className={selectedLi === 2 ? "selected" : ""}
-                  onClick={() => handleClick(2)}
-                >
-                  5 sec
-                </li>
-                <li
-                  className={selectedLi === 3 ? "selected" : ""}
-                  onClick={() => handleClick(3)}
-                >
-                  10 sec
-                </li>
-              </ul>
-            </div>
+            <ClockTimer selectedLi={selectedLi} handleClick={handleClick} />
           )}
         </div>
       )}
@@ -338,29 +320,7 @@ function CreateQuiz({
             </div>
           </div>
           {isQuizTypeQA && (
-            <div className="clock-timer">
-              <ul>
-                <li className="timer-header">Timer</li>
-                <li
-                  className={selectedLi === 1 ? "selected" : ""}
-                  onClick={() => handleClick(1)}
-                >
-                  OFF
-                </li>
-                <li
-                  className={selectedLi === 2 ? "selected" : ""}
-                  onClick={() => handleClick(2)}
-                >
-                  5 sec
-                </li>
-                <li
-                  className={selectedLi === 3 ? "selected" : ""}
-                  onClick={() => handleClick(3)}
-                >
-                  10 sec
-                </li>
-              </ul>
-            </div>
+            <ClockTimer selectedLi={selectedLi} handleClick={handleClick} />
           )}
         </div>
       )}
@@ -431,29 +391,7 @@ function CreateQuiz({
             </div>
           </div>
           {isQuizTypeQA && (
-            <div className="clock-timer">
-              <ul>
-                <li className="timer-header">Timer</li>
-                <li
-                  className={selectedLi === 1 ? "selected" : ""}
-                  onClick={() => handleClick(1)}
-                >
-                  OFF
-                </li>
-                <li
-                  className={selectedLi === 2 ? "selected" : ""}
-                  onClick={() => handleClick(2)}
-                >
-                  5 sec
-                </li>
-                <li
-                  className={selectedLi === 3 ? "selected" : ""}
-                  onClick={() => handleClick(3)}
-                >
-                  10 sec
-                </li>
-              </ul>
-            </div>
+            <ClockTimer selectedLi={selectedLi} handleClick={handleClick} />
           )}
         </div>
       )}
