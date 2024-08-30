@@ -48,6 +48,7 @@ function Dashboard() {
     setIsDashboard(false);
     setIsAnalytics(false);
     setIsCreateQuiz(true);
+    setIsShareQuizLink(false);
 
     // add new class to create quiz & remove active class from other components
     document.getElementById("createQuizId").classList.add("dashboard-active");
@@ -87,6 +88,11 @@ function Dashboard() {
 
     console.log("Quiz Name:", quizName + " Quiz Type:", quizType);
     setIsContinue(true);
+  };
+
+  const handleCancel = () => {
+    setIsCreateQuiz(false);
+    setQuizName("");
   };
 
   return (
@@ -307,16 +313,10 @@ function Dashboard() {
               </div>
 
               <div className="buttons">
-                <div
-                  className="cancel-btn"
-                  onClick={() => setIsCreateQuiz(false)}
-                >
+                <div className="cancel-btn" onClick={handleCancel}>
                   Cancel
                 </div>
-                <div
-                  className="continue-btn"
-                  onClick={handleContinue}
-                >
+                <div className="continue-btn" onClick={handleContinue}>
                   Continue
                 </div>
               </div>

@@ -163,14 +163,6 @@ function CreateQuiz({
                   <span
                     className="delete-question"
                     onClick={() => handleDeleteQuestion(number)}
-                    style={{
-                      cursor: "pointer",
-                      color: "#474444",
-                      position: "relative",
-                      top: "-30px",
-                      right: "-5px",
-                      fontSize: "20px",
-                    }}
                   >
                     ×
                   </span>
@@ -224,7 +216,7 @@ function CreateQuiz({
           <div className="option-list">
             <div className="answerOptions">
               {textOptions.map((option, index) => (
-                <div key={index} style={{ marginBottom: "10px" }}>
+                <div key={index} className="option-container">
                   <input
                     type="radio"
                     id={`text-option-${index + 1}`}
@@ -235,10 +227,7 @@ function CreateQuiz({
                   />
                   <label
                     htmlFor={`text-option-${index + 1}`}
-                    style={{
-                      display: "inline-block",
-                      marginLeft: "10px",
-                    }}
+                    className="option-label"
                   >
                     <input
                       type="text"
@@ -249,14 +238,9 @@ function CreateQuiz({
                         newOptions[index] = e.target.value;
                         setTextOptions(newOptions);
                       }}
-                      style={{
-                        backgroundColor:
-                          selectedOption === index + 1
-                            ? "#60B84B"
-                            : "transparent",
-                        color: selectedOption === index + 1 ? "white" : "black",
-                        width: "100%",
-                      }}
+                      className={`option-input ${
+                        selectedOption === index + 1 ? "selected" : ""
+                      }`}
                     />
                   </label>
                 </div>
@@ -273,31 +257,19 @@ function CreateQuiz({
               <ul>
                 <li className="timer-header">Timer</li>
                 <li
-                  style={{
-                    backgroundColor:
-                      selectedLi === 1 ? "#D60000" : "transparent",
-                    color: selectedLi === 1 ? "white" : "inherit",
-                  }}
+                  className={selectedLi === 1 ? "selected" : ""}
                   onClick={() => handleClick(1)}
                 >
                   OFF
                 </li>
                 <li
-                  style={{
-                    backgroundColor:
-                      selectedLi === 2 ? "#D60000" : "transparent",
-                    color: selectedLi === 2 ? "white" : "inherit",
-                  }}
+                  className={selectedLi === 2 ? "selected" : ""}
                   onClick={() => handleClick(2)}
                 >
                   5 sec
                 </li>
                 <li
-                  style={{
-                    backgroundColor:
-                      selectedLi === 3 ? "#D60000" : "transparent",
-                    color: selectedLi === 3 ? "white" : "inherit",
-                  }}
+                  className={selectedLi === 3 ? "selected" : ""}
                   onClick={() => handleClick(3)}
                 >
                   10 sec
@@ -314,7 +286,7 @@ function CreateQuiz({
           <div className="option-list">
             <div className="answerOptions">
               {imageOptions.map((option, index) => (
-                <div key={index} style={{ marginBottom: "10px" }}>
+                <div key={index} className="option-container">
                   <input
                     type="radio"
                     id={`image-option-${index + 1}`}
@@ -325,10 +297,7 @@ function CreateQuiz({
                   />
                   <label
                     htmlFor={`image-option-${index + 1}`}
-                    style={{
-                      display: "inline-block",
-                      marginLeft: "10px",
-                    }}
+                    className="option-label"
                   >
                     <input
                       type="text"
@@ -339,14 +308,9 @@ function CreateQuiz({
                         newOptions[index] = e.target.value;
                         setImageOptions(newOptions);
                       }}
-                      style={{
-                        backgroundColor:
-                          selectedOption === index + 1
-                            ? "#60B84B"
-                            : "transparent",
-                        color: selectedOption === index + 1 ? "white" : "black",
-                        width: "100%",
-                      }}
+                      className={`option-input ${
+                        selectedOption === index + 1 ? "selected" : ""
+                      }`}
                     />
                   </label>
                 </div>
@@ -363,31 +327,19 @@ function CreateQuiz({
               <ul>
                 <li className="timer-header">Timer</li>
                 <li
-                  style={{
-                    backgroundColor:
-                      selectedLi === 1 ? "#D60000" : "transparent",
-                    color: selectedLi === 1 ? "white" : "inherit",
-                  }}
+                  className={selectedLi === 1 ? "selected" : ""}
                   onClick={() => handleClick(1)}
                 >
                   OFF
                 </li>
                 <li
-                  style={{
-                    backgroundColor:
-                      selectedLi === 2 ? "#D60000" : "transparent",
-                    color: selectedLi === 2 ? "white" : "inherit",
-                  }}
+                  className={selectedLi === 2 ? "selected" : ""}
                   onClick={() => handleClick(2)}
                 >
                   5 sec
                 </li>
                 <li
-                  style={{
-                    backgroundColor:
-                      selectedLi === 3 ? "#D60000" : "transparent",
-                    color: selectedLi === 3 ? "white" : "inherit",
-                  }}
+                  className={selectedLi === 3 ? "selected" : ""}
                   onClick={() => handleClick(3)}
                 >
                   10 sec
@@ -404,7 +356,7 @@ function CreateQuiz({
           <div className="option-list">
             <div className="answerOptions">
               {textImageOptions.map((option, index) => (
-                <div key={index} style={{ marginBottom: "10px" }}>
+                <div key={index} className="option-container">
                   <input
                     type="radio"
                     id={`text-image-option-${index + 1}`}
@@ -415,10 +367,7 @@ function CreateQuiz({
                   />
                   <label
                     htmlFor={`text-image-option-${index + 1}`}
-                    style={{
-                      display: "inline-block",
-                      marginLeft: "10px",
-                    }}
+                    className="option-label"
                   >
                     <input
                       type="url"
@@ -429,14 +378,9 @@ function CreateQuiz({
                         newOptions[index] = e.target.value;
                         setTextImageOptions(newOptions);
                       }}
-                      style={{
-                        backgroundColor:
-                          selectedOption === index + 1
-                            ? "#60B84B"
-                            : "transparent",
-                        color: selectedOption === index + 1 ? "white" : "black",
-                        width: "100%",
-                      }}
+                      className={`option-input ${
+                        selectedOption === index + 1 ? "selected" : ""
+                      }`}
                     />
                   </label>
                 </div>
@@ -453,31 +397,19 @@ function CreateQuiz({
               <ul>
                 <li className="timer-header">Timer</li>
                 <li
-                  style={{
-                    backgroundColor:
-                      selectedLi === 1 ? "#D60000" : "transparent",
-                    color: selectedLi === 1 ? "white" : "inherit",
-                  }}
+                  className={selectedLi === 1 ? "selected" : ""}
                   onClick={() => handleClick(1)}
                 >
                   OFF
                 </li>
                 <li
-                  style={{
-                    backgroundColor:
-                      selectedLi === 2 ? "#D60000" : "transparent",
-                    color: selectedLi === 2 ? "white" : "inherit",
-                  }}
+                  className={selectedLi === 2 ? "selected" : ""}
                   onClick={() => handleClick(2)}
                 >
                   5 sec
                 </li>
                 <li
-                  style={{
-                    backgroundColor:
-                      selectedLi === 3 ? "#D60000" : "transparent",
-                    color: selectedLi === 3 ? "white" : "inherit",
-                  }}
+                  className={selectedLi === 3 ? "selected" : ""}
                   onClick={() => handleClick(3)}
                 >
                   10 sec

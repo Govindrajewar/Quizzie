@@ -1,5 +1,4 @@
 .Create-Quiz {
-  /* height: 90vh; */
   width: 80vw;
   background-color: #ffffff;
   border-radius: 10px;
@@ -143,8 +142,6 @@
 }
 
 .option-list input {
-  border: 1px solid #ccc;
-  background-color: aqua;
   font-size: 20px;
   padding: 10px;
 }
@@ -191,4 +188,45 @@
 
 .create-quiz-buttons .continue-btn {
   margin-right: 10%;
+}
+
+/* Inline styling moved here */
+.delete-question {
+  cursor: pointer;
+  color: #474444;
+  position: relative;
+  top: -30px;
+  right: -5px;
+  font-size: 20px;
+}
+
+.clock-timer li {
+  background-color: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.clock-timer li.selected {
+  background-color: #d60000;
+  color: white;
+}
+
+.option-container {
+  margin-bottom: 10px;
+}
+
+.option-label {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.option-input {
+  width: 100%;
+  background-color: transparent;
+  color: black;
+}
+
+.option-input.selected {
+  background-color: #60b84b;
+  color: white;
 }
