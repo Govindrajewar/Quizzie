@@ -1,52 +1,72 @@
 import React, { useState } from "react";
 import "../../style/LoginSignUp/SignUp.css";
+import { SignUpUser } from "../../api/User.js";
 
-function SignUp() {
+function SignUp({ handleLogin }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
 
-  const handleSignUp = () => {
+  const handleSignUp = async () => {
     const newErrors = {};
+    let isValid = true;
 
-    if (!name) newErrors.name = "Invalid name";
+    if (!name) {
+      newErrors.name = "Invalid name";
+      isValid = false;
+    }
+
     if (!email) {
       newErrors.email = "Invalid Email";
+      isValid = false;
     } else if (!/\S+@\S+\.\S+/.test(email)) {
       newErrors.email = "Email is invalid";
-      alert("Email is invalid");
+      isValid = false;
     }
-    if (!password) newErrors.password = "Weak password";
-    if (!confirmPassword) newErrors.confirmPassword = "Password doesn’t match";
-    if (password !== confirmPassword) {
+
+    if (!password) {
+      newErrors.password = "Weak password";
+      isValid = false;
+    } else if (password.length < 6) {
+      newErrors.password = "Password must be at least 6 characters long";
+      isValid = false;
+    }
+
+    if (!confirmPassword) {
       newErrors.confirmPassword = "Password doesn’t match";
-      alert("Password doesn’t match");
+      isValid = false;
+    } else if (password !== confirmPassword) {
+      newErrors.confirmPassword = "Password doesn’t match";
+      isValid = false;
     }
 
     setErrors(newErrors);
 
-    if (Object.keys(newErrors).length === 0) {
-      const userData = { name, email, password };
+    if (!isValid) {
+      const errorMessages = Object.values(newErrors).join("\n");
+      alert(
+        `Please fix the following errors before submitting:\n${errorMessages}`
+      );
+      return;
+    }
 
-      const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
-      const userExists = existingUsers.some((user) => user.email === email);
-
-      if (userExists) {
-        alert("User already exists");
-        return;
+    try {
+      const response = await SignUpUser(name, email, password);
+      if (response.status === 201) {
+        alert("Registration successful");
+        setName("");
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
+        handleLogin();
+      } else {
+        alert(response.data.message || "Registration failed");
       }
-
-      existingUsers.push(userData);
-      localStorage.setItem("users", JSON.stringify(existingUsers));
-
-      alert("Signed Up Successfully");
-
-      setName("");
-      setEmail("");
-      setPassword("");
-      setConfirmPassword("");
+    } catch (error) {
+      console.error("Registration error:", error);
+      alert("An error occurred during registration. Please try again later.");
     }
   };
 

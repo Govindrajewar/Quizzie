@@ -37,7 +37,7 @@ function LoginSignUp() {
           </div>
         </div>
 
-        {isLoggingIn ? <Login /> : <SignUp />}
+        {isLoggingIn ? <Login /> : <SignUp handleLogin={handleLogin} />}
       </div>
     </div>
   );
