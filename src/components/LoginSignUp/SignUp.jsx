@@ -53,7 +53,7 @@ function SignUp({ handleLogin }) {
     }
 
     try {
-      const response = await SignUpUser(name, email, password);
+      const response = await SignUpUser(name, email, password, "signup");
       if (response.status === 201) {
         alert("Registration successful");
         setName("");
