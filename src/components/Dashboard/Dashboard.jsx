@@ -6,7 +6,7 @@ import CreateQuiz from "./CreateQuiz";
 import ShareQuizLink from "./ShareQuizLink";
 import Analytics from "./Analytics";
 
-function Dashboard() {
+function Dashboard({ userEmail }) {
   const navigate = useNavigate();
   const [isDashboard, setIsDashboard] = useState(false);
   const [isAnalytics, setIsAnalytics] = useState(true);
@@ -345,6 +345,7 @@ function Dashboard() {
             setIsCreateQuiz={setIsCreateQuiz}
             quizName={quizName}
             quizType={quizType}
+            userEmail={userEmail}
           />
         )}
         {isShareQuizLink && (

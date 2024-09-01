@@ -9,6 +9,7 @@ function CreateQuiz({
   setIsCreateQuiz,
   quizName,
   quizType,
+  userEmail,
 }) {
   const [selectedOption, setSelectedOption] = useState(null);
   const [selectedLi, setSelectedLi] = useState();
@@ -71,10 +72,25 @@ function CreateQuiz({
 
   const handleShareQuizLink = () => {
     if (questionsData.length > 0) {
+      if (!userEmail) {
+        userEmail = "user@example.com";
+      }
+
+      const currentDate = new Date();
+
+      // Format the date as "DD MMM YYYY"
+      const formattedDate = new Intl.DateTimeFormat("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      }).format(currentDate);
+
       const newQuizData = {
         quizName,
         quizType,
         questions: questionsData,
+        createdBy: userEmail,
+        createdOn: formattedDate,
       };
 
       const existingQuizzes =
