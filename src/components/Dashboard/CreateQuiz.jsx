@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 import "../../style/Dashboard/CreateQuiz.css";
 import ClockTimer from "./ClockTimer";
 
@@ -70,7 +71,7 @@ function CreateQuiz({
     setSelectedOption(option);
   };
 
-  const handleShareQuizLink = () => {
+  const handleShareQuizLink = async () => {
     if (questionsData.length > 0) {
       if (!userEmail) {
         userEmail = "user@example.com";
@@ -104,17 +105,19 @@ function CreateQuiz({
         createdOn: formattedDate,
       };
 
-      const existingQuizzes =
-        JSON.parse(localStorage.getItem("quizData")) || [];
-
-      const updatedQuizzes = [...existingQuizzes, newQuizData];
-
-      localStorage.setItem("quizData", JSON.stringify(updatedQuizzes));
-
-      setStoredData(updatedQuizzes);
-      setIsContinue(false);
-      setIsShareQuizLink(true);
-      setIsCreateQuiz(false);
+      try {
+        const response = await axios.post(
+          "http://localhost:4000/createQuiz",
+          newQuizData
+        );
+        setStoredData(response.data);
+        setIsContinue(false);
+        setIsShareQuizLink(true);
+        setIsCreateQuiz(false);
+      } catch (error) {
+        console.error("Error creating quiz:", error);
+        alert("An error occurred while creating the quiz. Please try again.");
+      }
     } else {
       alert("Please add at least one question before creating the quiz.");
     }
