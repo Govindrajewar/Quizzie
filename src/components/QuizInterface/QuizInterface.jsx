@@ -9,6 +9,20 @@ function QuizInterface() {
   const [isQuizCompleted, setIsQuizCompleted] = useState(false);
   const [quizData, setQuizData] = useState(null);
   const [quizId, setQuizId] = useState(null);
+  const [timer, setTimer] = useState(null);
+  const [score, setScore] = useState(0);
+  // eslint-disable-next-line
+  const [userAnswers, setUserAnswers] = useState([]);
+  const [correctAnswers, setCorrectAnswers] = useState([]);
+
+  const formatTime = (timeInSeconds) => {
+    const minutes = Math.floor(timeInSeconds / 60);
+    const seconds = timeInSeconds % 60;
+    return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(
+      2,
+      "0"
+    )}s`;
+  };
 
   useEffect(() => {
     const quizUrl = window.location.href;
@@ -25,6 +39,10 @@ function QuizInterface() {
         .get(`http://localhost:4000/quiz/${quizId}`)
         .then((response) => {
           setQuizData(response.data);
+          const answers = response.data.questions.map(
+            (question) => question.correctAnswer - 1
+          );
+          setCorrectAnswers(answers);
         })
         .catch((error) => {
           console.error("There was an error fetching the quiz data!", error);
@@ -32,17 +50,75 @@ function QuizInterface() {
     }
   }, [quizId]);
 
+  useEffect(() => {
+    if (quizData) {
+      const currentQuestion = quizData.questions[questionNumber];
+      const initialTime =
+        currentQuestion.timer === "OFF"
+          ? null
+          : parseInt(currentQuestion.timer, 10);
+
+      if (initialTime) {
+        setTimer(initialTime);
+
+        const interval = setInterval(() => {
+          setTimer((prevTime) => {
+            if (prevTime <= 1) {
+              clearInterval(interval);
+              handleNextClick();
+              return 0;
+            }
+            return prevTime - 1;
+          });
+        }, 1000);
+
+        return () => clearInterval(interval);
+      } else {
+        setTimer(null);
+      }
+    }
+    // eslint-disable-next-line
+  }, [quizData, questionNumber]);
+
   const handleOptionClick = (optionIndex) => {
     setSelectedOption(optionIndex);
   };
 
   const handleNextClick = () => {
-    if (quizData && questionNumber < quizData.questions.length - 1) {
-      setQuestionNumber((prevNumber) => prevNumber + 1);
-      setSelectedOption(null); // Reset the selected option for the next question
-    } else {
-      setIsQuizCompleted(true);
+    if (selectedOption !== null) {
+      setUserAnswers((prevAnswers) => {
+        const updatedAnswers = [...prevAnswers];
+        updatedAnswers[questionNumber] = selectedOption;
+        return updatedAnswers;
+      });
     }
+
+    if (quizData) {
+      if (questionNumber < quizData.questions.length - 1) {
+        setQuestionNumber((prevNumber) => prevNumber + 1);
+        setSelectedOption(null);
+      } else {
+        setUserAnswers((prevAnswers) => {
+          const updatedAnswers = [...prevAnswers];
+          updatedAnswers[questionNumber] = selectedOption;
+          compareAnswers(updatedAnswers);
+          return updatedAnswers;
+        });
+        setIsQuizCompleted(true);
+      }
+    }
+  };
+
+  const compareAnswers = (finalUserAnswers) => {
+    let finalScore = 0;
+
+    for (let i = 0; i < correctAnswers.length; i++) {
+      if (finalUserAnswers[i] === correctAnswers[i]) {
+        finalScore += 1;
+      }
+    }
+
+    setScore(finalScore);
   };
 
   if (!quizData) {
@@ -57,9 +133,9 @@ function QuizInterface() {
             {String(questionNumber + 1).padStart(2, "0")}/
             {String(quizData.questions.length).padStart(2, "0")}
           </div>
-          <div className="QuizInterface-quiz-timer">
-            {quizData.questions[questionNumber].timer}
-          </div>
+          {timer !== null && timer > 0 && (
+            <div className="QuizInterface-quiz-timer">{formatTime(timer)}</div>
+          )}
         </div>
         <div className="QuizInterface-question">
           {quizData.questions[questionNumber].question}
@@ -93,7 +169,10 @@ function QuizInterface() {
           </div>
           <img src={trophy} alt="trophy" />
           <div className="QuizInterface-completion-scorecard">
-            Your Score is <span className="QuizInterface-scorecard">03/04</span>
+            Your Score is{" "}
+            <span className="QuizInterface-scorecard">
+              {score}/{quizData.questions.length}
+            </span>
           </div>
         </div>
       )}
