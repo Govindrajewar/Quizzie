@@ -18,6 +18,7 @@ function Dashboard({ userEmail }) {
   const [quizName, setQuizName] = useState("");
   const [quizType, setQuizType] = useState("Q&A");
   const [quizId, setQuizId] = useState("");
+  const [createdQuizId, setCreatedQuizId] = useState("");
 
   const handleDashboard = () => {
     setIsDashboard(true);
@@ -203,12 +204,13 @@ function Dashboard({ userEmail }) {
             quizType={quizType}
             userEmail={userEmail}
             quizId={quizId}
+            setCreatedQuizId={setCreatedQuizId}
           />
         )}
         {isShareQuizLink && (
           <ShareQuizLink
             setIsShareQuizLink={setIsShareQuizLink}
-            quizId={quizId}
+            createdQuizId={createdQuizId}
           />
         )}
       </div>

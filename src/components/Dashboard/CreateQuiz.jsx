@@ -11,7 +11,8 @@ function CreateQuiz({
   quizName,
   quizType,
   userEmail,
-  quizId
+  quizId,
+  setCreatedQuizId,
 }) {
   const [selectedOption, setSelectedOption] = useState(null);
   const [selectedLi, setSelectedLi] = useState();
@@ -26,7 +27,6 @@ function CreateQuiz({
   const [textImageOptions, setTextImageOptions] = useState(["", ""]);
 
   const [questionsData, setQuestionsData] = useState([]);
-  const [storedData, setStoredData] = useState(null);
 
   const isQuestionComplete = () => {
     const optionsNotEmpty = isTextOptions
@@ -101,7 +101,9 @@ function CreateQuiz({
           "http://localhost:4000/createQuiz",
           newQuizData
         );
-        setStoredData(response.data);
+
+        const createdQuiz = response.data;
+        setCreatedQuizId(createdQuiz._id);
         setIsContinue(false);
         setIsShareQuizLink(true);
         setIsCreateQuiz(false);
@@ -426,14 +428,6 @@ function CreateQuiz({
           Create Quiz
         </div>
       </div>
-
-      {/* Display Stored Data */}
-      {storedData && (
-        <div className="stored-data">
-          <h3>Stored Quiz Data</h3>
-          <pre>{JSON.stringify(storedData, null, 2)}</pre>
-        </div>
-      )}
     </div>
   );
 }
