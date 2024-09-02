@@ -12,7 +12,7 @@ const Analytics = () => {
   useEffect(() => {
     const fetchQuizzes = async () => {
       try {
-        const response = await fetch("http://localhost:4000/quizData/");
+        const response = await fetch("http://localhost:4000/quizData");
         if (!response.ok) {
           throw new Error("Failed to fetch quiz data");
         }
@@ -49,6 +49,15 @@ const Analytics = () => {
     } catch (err) {
       setError(err.message);
     }
+  };
+
+  const handleCopyQuizLink = (quizId) => {
+    const quizUrl = `${window.location.origin}/quiz/${quizId}`;
+    navigator.clipboard.writeText(quizUrl).then(() => {
+      alert("Quiz Copied");
+    }).catch(err => {
+      alert("Failed to copy quiz URL");
+    });
   };
 
   if (loading) {
@@ -88,11 +97,15 @@ const Analytics = () => {
                 className="icon"
                 id="FaTrashAlt"
                 onClick={() => {
-                  setIsDeleteQuiz(true);
                   setQuizToDelete(quiz._id);
+                  setIsDeleteQuiz(true);
                 }}
               />
-              <FaShareAlt className="icon" id="FaShareAlt" />
+              <FaShareAlt
+                className="icon"
+                id="FaShareAlt"
+                onClick={() => handleCopyQuizLink(quiz._id)}
+              />
               <a href="/" className="link">
                 Question Wise Analysis
               </a>
@@ -108,7 +121,10 @@ const Analytics = () => {
               Are you confirm you want to delete ?
             </div>
             <div className="delete-quiz-modal-footer">
-              <div className="delete-quiz-button" onClick={handleDeleteQuiz}>
+              <div
+                className="delete-quiz-button"
+                onClick={handleDeleteQuiz}
+              >
                 Confirm Delete
               </div>
               <div
