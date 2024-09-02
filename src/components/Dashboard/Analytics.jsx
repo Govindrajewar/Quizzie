@@ -7,6 +7,7 @@ const Analytics = () => {
   const [quizzes, setQuizzes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [quizToDelete, setQuizToDelete] = useState(null);
 
   useEffect(() => {
     const fetchQuizzes = async () => {
@@ -26,6 +27,29 @@ const Analytics = () => {
 
     fetchQuizzes();
   }, []);
+
+  const handleDeleteQuiz = async () => {
+    if (!quizToDelete) return;
+
+    try {
+      const response = await fetch(
+        `http://localhost:4000/quiz/${quizToDelete}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete quiz");
+      }
+
+      setQuizzes(quizzes.filter((quiz) => quiz._id !== quizToDelete));
+      setIsDeleteQuiz(false);
+      setQuizToDelete(null);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -63,7 +87,10 @@ const Analytics = () => {
               <FaTrashAlt
                 className="icon"
                 id="FaTrashAlt"
-                onClick={() => setIsDeleteQuiz(true)}
+                onClick={() => {
+                  setIsDeleteQuiz(true);
+                  setQuizToDelete(quiz._id);
+                }}
               />
               <FaShareAlt className="icon" id="FaShareAlt" />
               <a href="/" className="link">
@@ -81,10 +108,7 @@ const Analytics = () => {
               Are you confirm you want to delete ?
             </div>
             <div className="delete-quiz-modal-footer">
-              <div
-                className="delete-quiz-button"
-                onClick={() => alert("Delete")}
-              >
+              <div className="delete-quiz-button" onClick={handleDeleteQuiz}>
                 Confirm Delete
               </div>
               <div
