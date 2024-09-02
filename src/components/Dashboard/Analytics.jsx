@@ -1,20 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaEdit, FaTrashAlt, FaShareAlt } from "react-icons/fa";
 import "../../style/Dashboard/Analytics.css";
 
 const Analytics = () => {
   const [isDeleteQuiz, setIsDeleteQuiz] = useState(false);
+  const [quizzes, setQuizzes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const quizzes = [
-    { id: 1, name: "Quiz 1", date: "04 Sep, 2023", impressions: "667" },
-    { id: 2, name: "Quiz 2", date: "04 Sep, 2023", impressions: "667" },
-    { id: 3, name: "Quiz 3", date: "09 Sep, 2023", impressions: "789" },
-    { id: 4, name: "Quiz 4", date: "09 Sep, 2023", impressions: "789" },
-    { id: 5, name: "Quiz 5", date: "13 Sep, 2023", impressions: "2.5K" },
-    { id: 6, name: "Quiz 6", date: "13 Sep, 2023", impressions: "2.5K" },
-    { id: 7, name: "Quiz 7", date: "17 Sep, 2023", impressions: "1.3K" },
-    { id: 8, name: "Quiz 8", date: "17 Sep, 2023", impressions: "1.3K" },
-  ];
+  useEffect(() => {
+    const fetchQuizzes = async () => {
+      try {
+        const response = await fetch("http://localhost:4000/quizData/");
+        if (!response.ok) {
+          throw new Error("Failed to fetch quiz data");
+        }
+        const data = await response.json();
+        setQuizzes(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchQuizzes();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div className="Analytics">
@@ -30,14 +49,15 @@ const Analytics = () => {
         </div>
         {quizzes.map((quiz, index) => (
           <div
-            key={quiz.id}
+            key={quiz._id}
             className="body-row"
             style={{ backgroundColor: index % 2 === 0 ? "" : "#B3C4FF" }}
           >
-            <div className="body-cell">{quiz.id}</div>
-            <div className="body-cell">{quiz.name}</div>
-            <div className="body-cell">{quiz.date}</div>
-            <div className="body-cell">{quiz.impressions}</div>
+            <div className="body-cell">{index + 1}</div>
+            <div className="body-cell">{quiz.quizName}</div>
+            <div className="body-cell">{quiz.createdOn}</div>
+            {/* Placeholder for impressions since it's not provided in the data */}
+            <div className="body-cell">{quiz.impressions || "N/A"}</div>
             <div className="body-cell">
               <FaEdit className="icon" id="FaEdit" />
               <FaTrashAlt
