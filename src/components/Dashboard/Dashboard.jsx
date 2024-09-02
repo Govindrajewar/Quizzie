@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../../style/Dashboard/Dashboard.css";
 import { useNavigate } from "react-router-dom";
 import eyeIcon from "../../assets/Dashboard/outline-eyes-icon.png";
@@ -17,6 +17,7 @@ function Dashboard({ userEmail }) {
 
   const [quizName, setQuizName] = useState("");
   const [quizType, setQuizType] = useState("Q&A");
+  const [quizId, setQuizId] = useState("");
 
   const handleDashboard = () => {
     setIsDashboard(true);
@@ -108,18 +109,20 @@ function Dashboard({ userEmail }) {
     setQuizName("");
   };
 
-  // generate unique quizId
-  const generateQuizId = (length) => {
-    const chars =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    let result = "";
-    for (let i = 0; i < length; i++) {
-      result += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return result;
-  };
+  useEffect(() => {
+    const generateQuizId = (length) => {
+      const chars =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      let result = "";
+      for (let i = 0; i < length; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return result;
+    };
 
-  const quizId = generateQuizId(8);
+    const uniqueQuizId = generateQuizId(8);
+    setQuizId(uniqueQuizId);
+  }, []);
 
 
   return (
