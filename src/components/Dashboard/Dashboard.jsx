@@ -108,6 +108,20 @@ function Dashboard({ userEmail }) {
     setQuizName("");
   };
 
+  // generate unique quizId
+  const generateQuizId = (length) => {
+    const chars =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let result = "";
+    for (let i = 0; i < length; i++) {
+      result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return result;
+  };
+
+  const quizId = generateQuizId(8);
+
+
   return (
     <div className="dashboard">
       <div className="dashboard-navbar">
@@ -346,10 +360,14 @@ function Dashboard({ userEmail }) {
             quizName={quizName}
             quizType={quizType}
             userEmail={userEmail}
+            quizId={quizId}
           />
         )}
         {isShareQuizLink && (
-          <ShareQuizLink setIsShareQuizLink={setIsShareQuizLink} />
+          <ShareQuizLink
+            setIsShareQuizLink={setIsShareQuizLink}
+            quizId={quizId}
+          />
         )}
       </div>
     </div>

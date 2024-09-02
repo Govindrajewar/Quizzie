@@ -20,7 +20,7 @@ function App() {
             path="/dashboard"
             element={<Dashboard userEmail={userEmail} />}
           />
-          <Route path="/quiz" element={<QuizInterface />} />
+          <Route path="/quiz/:id" element={<QuizInterface />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import "../../style/Dashboard/ShareQuizLink.css";
 import done from "../../assets/CreateQuiz/done.png";
 
-function ShareQuizLink({ setIsShareQuizLink }) {
-  const sharableLink = "http://localhost:3000/quiz";
+function ShareQuizLink({ setIsShareQuizLink, quizId }) {
+  const sharableLink = `http://localhost:3000/quiz/${quizId}`;
 
   const [isShareLink, setIsShareLink] = useState(false);
   const [isCloseLink, setIsCloseLink] = useState(true);
