@@ -106,7 +106,7 @@ const Analytics = () => {
                 id="FaShareAlt"
                 onClick={() => handleCopyQuizLink(quiz._id)}
               />
-              <a href="/" className="link">
+              <a href={`/quiz-detail/${quiz._id}`} className="link">
                 Question Wise Analysis
               </a>
             </div>

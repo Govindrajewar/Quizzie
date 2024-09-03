@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginSignUp from "./components/LoginSignUp/LoginSignUp";
 import Dashboard from "./components/Dashboard/Dashboard";
 import QuizInterface from "./components/QuizInterface/QuizInterface.jsx";
+import QuestionWiseAnalysis from "./components/Dashboard/QuestionWiseAnalysis.jsx";
 
 function App() {
   const [userEmail, setUserEmail] = useState(null);
@@ -21,6 +22,7 @@ function App() {
             element={<Dashboard userEmail={userEmail} />}
           />
           <Route path="/quiz/:id" element={<QuizInterface />} />
+          <Route path="/quiz-detail/:id" element={<QuestionWiseAnalysis />} />
         </Routes>
       </BrowserRouter>
     </div>
