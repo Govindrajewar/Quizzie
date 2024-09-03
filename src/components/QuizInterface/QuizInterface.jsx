@@ -102,10 +102,19 @@ function QuizInterface() {
           const updatedAnswers = [...prevAnswers];
           updatedAnswers[questionNumber] = selectedOption;
           compareAnswers(updatedAnswers);
+          updateImpressions(quizId);
           return updatedAnswers;
         });
         setIsQuizCompleted(true);
       }
+    }
+  };
+
+  const updateImpressions = async (quizId) => {
+    try {
+      await axios.put(`http://localhost:4000/quiz/${quizId}/impressions`);
+    } catch (error) {
+      console.error("Error updating impressions:", error);
     }
   };
 

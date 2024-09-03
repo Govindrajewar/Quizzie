@@ -23,7 +23,9 @@ function DashboardComponent() {
           0
         );
 
-        const totalImpressions = 0;
+        const totalImpressions = data.reduce((acc, quiz) => {
+          return acc + (quiz.impressions || 0);
+        }, 0);
 
         setDashboardStats({
           totalQuizzes,
@@ -65,7 +67,6 @@ function DashboardComponent() {
             <div key={quiz._id} className="quiz-data">
               <span className="quiz-title">{quiz.quizName}</span>
               <span className="quiz-impression">
-                {/* Placeholder for impressions if available */}
                 {quiz.impressions || "N/A"}
                 <img src={eyeIcon} alt="eye icon" />
               </span>
