@@ -8,8 +8,8 @@ import DashboardComponent from "./DashboardComponent";
 
 function Dashboard({ userEmail }) {
   const navigate = useNavigate();
-  const [isDashboard, setIsDashboard] = useState(false);
-  const [isAnalytics, setIsAnalytics] = useState(true);
+  const [isDashboard, setIsDashboard] = useState(true);
+  const [isAnalytics, setIsAnalytics] = useState(false);
   const [isCreateQuiz, setIsCreateQuiz] = useState(false);
   const [isContinue, setIsContinue] = useState(false);
   const [isQuizTypeQA, setIsQuizTypeQA] = useState(true);
@@ -24,6 +24,7 @@ function Dashboard({ userEmail }) {
     setIsDashboard(true);
     setIsAnalytics(false);
     setIsCreateQuiz(false);
+    setIsShareQuizLink(false);
 
     // add new class to create quiz & remove active class from other components
     document.getElementById("dashboardId").classList.add("dashboard-active");

@@ -67,7 +67,7 @@ function DashboardComponent() {
             <div key={quiz._id} className="quiz-data">
               <span className="quiz-title">{quiz.quizName}</span>
               <span className="quiz-impression">
-                {quiz.impressions || "N/A"}
+                {quiz.impressions || 0}
                 <img src={eyeIcon} alt="eye icon" />
               </span>
               <br />

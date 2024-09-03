@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaEdit, FaTrashAlt, FaShareAlt } from "react-icons/fa";
 import "../../style/Dashboard/Analytics.css";
+import done from "../../assets/CreateQuiz/done.png";
 
 const Analytics = () => {
   const [isDeleteQuiz, setIsDeleteQuiz] = useState(false);
@@ -8,6 +9,7 @@ const Analytics = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [quizToDelete, setQuizToDelete] = useState(null);
+  const [isCopyLink, setIsCopyLink] = useState(false);
 
   useEffect(() => {
     const fetchQuizzes = async () => {
@@ -54,10 +56,18 @@ const Analytics = () => {
   const handleCopyQuizLink = (quizId) => {
     const quizUrl = `${window.location.origin}/quiz/${quizId}`;
     navigator.clipboard.writeText(quizUrl).then(() => {
-      alert("Quiz Copied");
-    }).catch(err => {
-      alert("Failed to copy quiz URL");
-    });
+        setIsCopyLink(true);
+        setTimeout(() => {
+          setIsCopyLink(false);
+        }, 3000);
+      })
+      .catch((err) => {
+        alert("Failed to copy quiz URL");
+      });
+  };
+
+  const handleCloseLink = () => {
+    setIsCopyLink(false);
   };
 
   if (loading) {
@@ -89,8 +99,7 @@ const Analytics = () => {
             <div className="body-cell">{index + 1}</div>
             <div className="body-cell">{quiz.quizName}</div>
             <div className="body-cell">{quiz.createdOn}</div>
-            {/* Placeholder for impressions since it's not provided in the data */}
-            <div className="body-cell">{quiz.impressions || "N/A"}</div>
+            <div className="body-cell">{quiz.impressions || 0}</div>
             <div className="body-cell">
               <FaEdit className="icon" id="FaEdit" />
               <FaTrashAlt
@@ -134,6 +143,16 @@ const Analytics = () => {
                 Cancel
               </div>
             </div>
+          </div>
+        </div>
+      )}
+
+      {isCopyLink && (
+        <div className="share-link-copy">
+          <img src={done} alt="done" />
+          <div>Link copied to clipboard</div>
+          <div className="close-message" onClick={handleCloseLink}>
+            ×
           </div>
         </div>
       )}
