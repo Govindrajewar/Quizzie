@@ -3,7 +3,7 @@ import "../../style/LoginSignUp/LoginSignUp.css";
 import SignUp from "./SignUp.jsx";
 import Login from "./Login.jsx";
 
-function LoginSignUp({ setUserEmail }) {
+function LoginSignUp({ setUserEmail, setIsAuthenticated }) {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
 
   const handleLogin = () => {
@@ -38,7 +38,10 @@ function LoginSignUp({ setUserEmail }) {
         </div>
 
         {isLoggingIn ? (
-          <Login setUserEmail={setUserEmail} />
+          <Login
+            setUserEmail={setUserEmail}
+            setIsAuthenticated={setIsAuthenticated}
+          />
         ) : (
           <SignUp handleLogin={handleLogin} />
         )}

@@ -6,7 +6,7 @@ import ShareQuizLink from "./ShareQuizLink";
 import Analytics from "./Analytics";
 import DashboardComponent from "./DashboardComponent";
 
-function Dashboard({ userEmail }) {
+function Dashboard({ userEmail, setIsAuthenticated }) {
   const navigate = useNavigate();
   const [isDashboard, setIsDashboard] = useState(true);
   const [isAnalytics, setIsAnalytics] = useState(false);
@@ -61,6 +61,7 @@ function Dashboard({ userEmail }) {
 
   const handleLogout = () => {
     alert("Logged out");
+    setIsAuthenticated(false);
     navigate("/");
   };
 
