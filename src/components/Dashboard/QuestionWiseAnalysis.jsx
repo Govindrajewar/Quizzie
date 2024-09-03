@@ -54,7 +54,7 @@ const QuestionWiseAnalysis = () => {
       <div className="questions-section">
         {quiz.questions.map((question, index) => {
           const attempted = impressions;
-          const correct = question.correct || 0;
+          const correct = question.answeredCorrectly || 0;
           const incorrect = attempted - correct;
 
           return (

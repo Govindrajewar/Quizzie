@@ -94,6 +94,11 @@ function QuizInterface() {
     }
 
     if (quizData) {
+      if (selectedOption === correctAnswers[questionNumber]) {
+        updateAnsweredCorrectlyCount(quizId, questionNumber); 
+        setScore((prevScore) => prevScore + 1);
+      }
+
       if (questionNumber < quizData.questions.length - 1) {
         setQuestionNumber((prevNumber) => prevNumber + 1);
         setSelectedOption(null);
@@ -101,7 +106,6 @@ function QuizInterface() {
         setUserAnswers((prevAnswers) => {
           const updatedAnswers = [...prevAnswers];
           updatedAnswers[questionNumber] = selectedOption;
-          compareAnswers(updatedAnswers);
           updateImpressions(quizId);
           return updatedAnswers;
         });
@@ -118,16 +122,14 @@ function QuizInterface() {
     }
   };
 
-  const compareAnswers = (finalUserAnswers) => {
-    let finalScore = 0;
-
-    for (let i = 0; i < correctAnswers.length; i++) {
-      if (finalUserAnswers[i] === correctAnswers[i]) {
-        finalScore += 1;
-      }
+  const updateAnsweredCorrectlyCount = async (quizId, questionIndex) => {
+    try {
+      await axios.put(
+        `http://localhost:4000/quiz/${quizId}/question/${questionIndex}/correct`
+      );
+    } catch (error) {
+      console.error("Error updating answeredCorrectly count:", error);
     }
-
-    setScore(finalScore);
   };
 
   if (!quizData) {
