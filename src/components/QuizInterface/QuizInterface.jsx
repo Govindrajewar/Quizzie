@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../../style/QuizInterface/QuizInterface.css";
 import trophy from "../../assets/QuizInterface/trophy.png";
 import axios from "axios";
+import BACKEND_ORIGIN_URL from "../../links"
 
 function QuizInterface() {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -36,7 +37,7 @@ function QuizInterface() {
 
     if (quizId) {
       axios
-        .get(`http://localhost:4000/quiz/${quizId}`)
+        .get(`${BACKEND_ORIGIN_URL}/quiz/${quizId}`)
         .then((response) => {
           setQuizData(response.data);
           const answers = response.data.questions.map(
@@ -116,7 +117,7 @@ function QuizInterface() {
 
   const updateImpressions = async (quizId) => {
     try {
-      await axios.put(`http://localhost:4000/quiz/${quizId}/impressions`);
+      await axios.put(`${BACKEND_ORIGIN_URL}/quiz/${quizId}/impressions`);
     } catch (error) {
       console.error("Error updating impressions:", error);
     }
@@ -125,7 +126,7 @@ function QuizInterface() {
   const updateAnsweredCorrectlyCount = async (quizId, questionIndex) => {
     try {
       await axios.put(
-        `http://localhost:4000/quiz/${quizId}/question/${questionIndex}/correct`
+        `${BACKEND_ORIGIN_URL}/quiz/${quizId}/question/${questionIndex}/correct`
       );
     } catch (error) {
       console.error("Error updating answeredCorrectly count:", error);

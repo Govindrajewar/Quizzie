@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FaEdit, FaTrashAlt, FaShareAlt } from "react-icons/fa";
 import "../../style/Dashboard/Analytics.css";
 import done from "../../assets/CreateQuiz/done.png";
+import BACKEND_ORIGIN_URL from "../../links"
 
 const Analytics = () => {
   const [isDeleteQuiz, setIsDeleteQuiz] = useState(false);
@@ -14,7 +15,7 @@ const Analytics = () => {
   useEffect(() => {
     const fetchQuizzes = async () => {
       try {
-        const response = await fetch("http://localhost:4000/quizData");
+        const response = await fetch(`${BACKEND_ORIGIN_URL}/quizData`);
         if (!response.ok) {
           throw new Error("Failed to fetch quiz data");
         }
@@ -35,7 +36,7 @@ const Analytics = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:4000/quiz/${quizToDelete}`,
+        `${BACKEND_ORIGIN_URL}/quiz/${quizToDelete}`,
         {
           method: "DELETE",
         }

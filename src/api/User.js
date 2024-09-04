@@ -1,8 +1,9 @@
 import axios from "axios";
 
-const BACKEND_ORIGIN_URL = "http://localhost:4000";
+import BACKEND_ORIGIN_URL from "../links"
 
 const SignUpUser = async (name, email, password, action) => {
+  console.log("BACKEND_ORIGIN_URL"+BACKEND_ORIGIN_URL);
   try {
     const response = await axios.post(`${BACKEND_ORIGIN_URL}/`, {
       name,

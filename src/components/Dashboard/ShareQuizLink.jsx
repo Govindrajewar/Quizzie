@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import "../../style/Dashboard/ShareQuizLink.css";
 import done from "../../assets/CreateQuiz/done.png";
+import FRONTEND_ORIGIN_URL from "../../links"
 
 function ShareQuizLink({ setIsShareQuizLink, createdQuizId }) {
-  const sharableLink = `http://localhost:3000/quiz/${createdQuizId}`;
+  const sharableLink = `${FRONTEND_ORIGIN_URL}/quiz/${createdQuizId}`;
 
   const [isShareLink, setIsShareLink] = useState(false);
   const [isCloseLink, setIsCloseLink] = useState(true);

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "../../style/Dashboard/QuestionWiseAnalysis.css";
+import BACKEND_ORIGIN_URL from "../../links"
 
 const QuestionWiseAnalysis = () => {
   const { id } = useParams();
@@ -11,7 +12,7 @@ const QuestionWiseAnalysis = () => {
   useEffect(() => {
     const fetchQuizDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/quiz/${id}`);
+        const response = await fetch(`${BACKEND_ORIGIN_URL}/quiz/${id}`);
         if (!response.ok) {
           throw new Error("Failed to fetch quiz details");
         }
