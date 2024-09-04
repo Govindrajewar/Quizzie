@@ -3,13 +3,14 @@ import { FaEdit, FaTrashAlt, FaShareAlt } from "react-icons/fa";
 import "../../style/Dashboard/Analytics.css";
 import done from "../../assets/CreateQuiz/done.png";
 
-const Analytics = () => {
+const Analytics = ({ userEmail }) => {
   const [isDeleteQuiz, setIsDeleteQuiz] = useState(false);
   const [quizzes, setQuizzes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [quizToDelete, setQuizToDelete] = useState(null);
   const [isCopyLink, setIsCopyLink] = useState(false);
+  const currentUserEmail = userEmail;
 
   useEffect(() => {
     const fetchQuizzes = async () => {
@@ -21,7 +22,12 @@ const Analytics = () => {
           throw new Error("Failed to fetch quiz data");
         }
         const data = await response.json();
-        setQuizzes(data);
+
+        const userQuizzes = data.filter(
+          (quiz) => quiz.createdBy === currentUserEmail
+        );
+
+        setQuizzes(userQuizzes);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -30,7 +36,7 @@ const Analytics = () => {
     };
 
     fetchQuizzes();
-  }, []);
+  }, [currentUserEmail]);
 
   const handleDeleteQuiz = async () => {
     if (!quizToDelete) return;

@@ -139,9 +139,9 @@ function Dashboard({ userEmail, setIsAuthenticated }) {
       </div>
 
       <div className="dashboard-content">
-        {isDashboard && <DashboardComponent />}
+        {isDashboard && <DashboardComponent userEmail={userEmail} />}
 
-        {isAnalytics && <Analytics />}
+        {isAnalytics && <Analytics userEmail={userEmail} />}
 
         {isCreateQuiz && (
           <div className="createQuiz">

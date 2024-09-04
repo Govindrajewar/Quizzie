@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import eyeIcon from "../../assets/Dashboard/outline-eyes-icon.png";
 
-function DashboardComponent() {
+function DashboardComponent({ userEmail }) {
   const [quizData, setQuizData] = useState([]);
   const [dashboardStats, setDashboardStats] = useState({
     totalQuizzes: 0,
@@ -9,6 +9,7 @@ function DashboardComponent() {
     totalImpressions: 0,
   });
 
+  const currentUserEmail = userEmail;
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -17,18 +18,21 @@ function DashboardComponent() {
         );
         const data = await response.json();
 
-        setQuizData(data);
+        const userQuizzes = data.filter(
+          (quiz) => quiz.createdBy === currentUserEmail
+        );
 
-        const totalQuizzes = data.length;
-        const totalQuestions = data.reduce(
+        const totalQuizzes = userQuizzes.length;
+        const totalQuestions = userQuizzes.reduce(
           (acc, quiz) => acc + quiz.questions.length,
           0
         );
 
-        const totalImpressions = data.reduce((acc, quiz) => {
+        const totalImpressions = userQuizzes.reduce((acc, quiz) => {
           return acc + (quiz.impressions || 0);
         }, 0);
 
+        setQuizData(userQuizzes);
         setDashboardStats({
           totalQuizzes,
           totalQuestions,
@@ -40,7 +44,7 @@ function DashboardComponent() {
     };
 
     fetchData();
-  }, []);
+  }, [currentUserEmail]);
 
   return (
     <div className="dashboard-header">
