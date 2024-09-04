@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import eyeIcon from "../../assets/Dashboard/outline-eyes-icon.png";
-import BACKEND_ORIGIN_URL from "../../links"
 
 function DashboardComponent() {
   const [quizData, setQuizData] = useState([]);
@@ -13,7 +12,9 @@ function DashboardComponent() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${BACKEND_ORIGIN_URL}/quizData/`);
+        const response = await fetch(
+          `https://quizzie-server-0461.onrender.com/quizData/`
+        );
         const data = await response.json();
 
         setQuizData(data);

@@ -4,7 +4,7 @@ import done from "../../assets/CreateQuiz/done.png";
 import FRONTEND_ORIGIN_URL from "../../links"
 
 function ShareQuizLink({ setIsShareQuizLink, createdQuizId }) {
-  const sharableLink = `${FRONTEND_ORIGIN_URL}/quiz/${createdQuizId}`;
+  const sharableLink = `https://quizzie-blush.vercel.app/quiz/${createdQuizId}`;
 
   const [isShareLink, setIsShareLink] = useState(false);
   const [isCloseLink, setIsCloseLink] = useState(true);
