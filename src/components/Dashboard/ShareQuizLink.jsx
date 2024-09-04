@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import "../../style/Dashboard/ShareQuizLink.css";
 import done from "../../assets/CreateQuiz/done.png";
-import FRONTEND_ORIGIN_URL from "../../links"
 
 function ShareQuizLink({ setIsShareQuizLink, createdQuizId }) {
   const sharableLink = `https://quizzie-blush.vercel.app/quiz/${createdQuizId}`;

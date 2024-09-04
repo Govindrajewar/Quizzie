@@ -90,22 +90,6 @@ function Dashboard({ userEmail, setIsAuthenticated }) {
       return;
     }
 
-    /*   TODO: NOT APPLICABLE SINCE WE ARE USING MONGODB SERVER
-    // Retrieve existing quizzes from local storage
-    const existingQuizzes = JSON.parse(localStorage.getItem("quizData")) || [];
-
-    // Check if the quiz name already exists
-    const quizExists = existingQuizzes.some(
-      (quiz) => quiz.quizName === quizName
-    );
-
-    if (quizExists) {
-      alert("Quiz name already exists. Please choose a different name.");
-      return;
-    }
-
-    console.log("Quiz Name:", quizName + " Quiz Type:", quizType);
-    */
     setIsContinue(true);
   };
 
