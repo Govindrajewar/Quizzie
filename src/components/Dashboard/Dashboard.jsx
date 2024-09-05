@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "../../style/Dashboard/Dashboard.css";
 import { useNavigate } from "react-router-dom";
 import CreateQuiz from "./CreateQuiz";
@@ -26,7 +26,6 @@ function Dashboard({ userEmail, setIsAuthenticated }) {
     setIsCreateQuiz(false);
     setIsShareQuizLink(false);
 
-    // add new class to create quiz & remove active class from other components
     document.getElementById("dashboardId").classList.add("dashboard-active");
     document.getElementById("analyticsId").classList.remove("dashboard-active");
     document
@@ -39,7 +38,6 @@ function Dashboard({ userEmail, setIsAuthenticated }) {
     setIsAnalytics(true);
     setIsCreateQuiz(false);
 
-    // add new class to create quiz & remove active class from other components
     document.getElementById("analyticsId").classList.add("dashboard-active");
     document.getElementById("dashboardId").classList.remove("dashboard-active");
     document
@@ -53,7 +51,9 @@ function Dashboard({ userEmail, setIsAuthenticated }) {
     setIsCreateQuiz(true);
     setIsShareQuizLink(false);
 
-    // add new class to create quiz & remove active class from other components
+    const uniqueQuizId = generateQuizId(8);
+    setQuizId(uniqueQuizId);
+
     document.getElementById("createQuizId").classList.add("dashboard-active");
     document.getElementById("dashboardId").classList.remove("dashboard-active");
     document.getElementById("analyticsId").classList.remove("dashboard-active");
@@ -98,20 +98,16 @@ function Dashboard({ userEmail, setIsAuthenticated }) {
     setQuizName("");
   };
 
-  useEffect(() => {
-    const generateQuizId = (length) => {
-      const chars =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-      let result = "";
-      for (let i = 0; i < length; i++) {
-        result += chars.charAt(Math.floor(Math.random() * chars.length));
-      }
-      return result;
-    };
-
-    const uniqueQuizId = generateQuizId(8);
-    setQuizId(uniqueQuizId);
-  }, []);
+  // Helper function to generate a unique quiz ID
+  const generateQuizId = (length) => {
+    const chars =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let result = "";
+    for (let i = 0; i < length; i++) {
+      result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return result;
+  };
 
   return (
     <div className="dashboard">
@@ -193,6 +189,7 @@ function Dashboard({ userEmail, setIsAuthenticated }) {
             setCreatedQuizId={setCreatedQuizId}
           />
         )}
+
         {isShareQuizLink && (
           <ShareQuizLink
             setIsShareQuizLink={setIsShareQuizLink}
