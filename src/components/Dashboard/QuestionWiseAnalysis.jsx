@@ -12,7 +12,7 @@ const QuestionWiseAnalysis = () => {
     const fetchQuizDetails = async () => {
       try {
         const response = await fetch(
-          `https://quizzie-server-0461.onrender.com/quiz/${id}`
+          `http://localhost:4000/quiz/${id}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch quiz details");

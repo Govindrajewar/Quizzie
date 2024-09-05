@@ -98,7 +98,7 @@ function CreateQuiz({
 
       try {
         const response = await axios.post(
-          `https://quizzie-server-0461.onrender.com/createQuiz`,
+          `http://localhost:4000/createQuiz`,
           newQuizData
         );
 

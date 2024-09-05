@@ -16,7 +16,7 @@ const Analytics = ({ userEmail }) => {
     const fetchQuizzes = async () => {
       try {
         const response = await fetch(
-          `https://quizzie-server-0461.onrender.com/quizData`
+          `http://localhost:4000/quizData`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch quiz data");
@@ -43,7 +43,7 @@ const Analytics = ({ userEmail }) => {
 
     try {
       const response = await fetch(
-        `https://quizzie-server-0461.onrender.com/quiz/${quizToDelete}`,
+        `http://localhost:4000/quiz/${quizToDelete}`,
         {
           method: "DELETE",
         }
