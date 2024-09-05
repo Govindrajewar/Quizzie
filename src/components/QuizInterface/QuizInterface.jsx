@@ -97,7 +97,7 @@ function QuizInterface() {
         return updatedAnswers;
       });
 
-      updateAnswerOptionCount(quizId, (questionNumber+1), (selectedOption+1));
+      updateAnswerOptionCount(quizId, (questionNumber), (selectedOption));
     }
 
     if (quizData) {
