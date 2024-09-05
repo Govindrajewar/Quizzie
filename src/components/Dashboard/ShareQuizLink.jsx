@@ -3,7 +3,7 @@ import "../../style/Dashboard/ShareQuizLink.css";
 import done from "../../assets/CreateQuiz/done.png";
 
 function ShareQuizLink({ setIsShareQuizLink, createdQuizId }) {
-  const sharableLink = `http://localhost:3000/quiz/${createdQuizId}`;
+  const sharableLink = `https://quizzie-blush.vercel.appquiz/${createdQuizId}`;
 
   const [isShareLink, setIsShareLink] = useState(false);
   const [isCloseLink, setIsCloseLink] = useState(true);

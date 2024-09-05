@@ -36,7 +36,7 @@ function QuizInterface() {
 
     if (quizId) {
       axios
-        .get(`http://localhost:4000/quiz/${quizId}`)
+        .get(`https://quizzie-server-0461.onrender.com/quiz/${quizId}`)
         .then((response) => {
           setQuizData(response.data);
           const answers = response.data.questions.map(
@@ -117,7 +117,7 @@ function QuizInterface() {
   const updateImpressions = async (quizId) => {
     try {
       await axios.put(
-        `http://localhost:4000/quiz/${quizId}/impressions`
+        `https://quizzie-server-0461.onrender.com/quiz/${quizId}/impressions`
       );
     } catch (error) {
       console.error("Error updating impressions:", error);
@@ -127,7 +127,7 @@ function QuizInterface() {
   const updateAnsweredCorrectlyCount = async (quizId, questionIndex) => {
     try {
       await axios.put(
-        `http://localhost:4000/quiz/${quizId}/question/${questionIndex}/correct`
+        `https://quizzie-server-0461.onrender.com/quiz/${quizId}/question/${questionIndex}/correct`
       );
     } catch (error) {
       console.error("Error updating answeredCorrectly count:", error);

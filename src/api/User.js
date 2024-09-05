@@ -3,7 +3,7 @@ import axios from "axios";
 const SignUpUser = async (name, email, password, action) => {
   try {
     const response = await axios.post(
-      `http://localhost:4000/`,
+      `https://quizzie-server-0461.onrender.com/`,
       {
         name,
         email,
@@ -21,7 +21,7 @@ const SignUpUser = async (name, email, password, action) => {
 const LoginUser = async (email, password, action) => {
   try {
     const response = await axios.post(
-      `http://localhost:4000/`,
+      `https://quizzie-server-0461.onrender.com/`,
       {
         email,
         password,
