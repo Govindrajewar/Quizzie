@@ -67,3 +67,22 @@
   font-weight: 600;
   color: #474444;
 }
+
+.poll-count {
+  font-size: 30px;
+  font-weight: 600;
+  color: #474444;
+}
+
+.poll-option {
+  font-size: 20px;
+  font-weight: 600;
+  color: #474444;
+}
+
+.poll-option-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}

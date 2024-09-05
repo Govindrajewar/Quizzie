@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../../style/Dashboard/Dashboard.css";
 import { useNavigate } from "react-router-dom";
 import CreateQuiz from "./CreateQuiz";
@@ -6,7 +6,7 @@ import ShareQuizLink from "./ShareQuizLink";
 import Analytics from "./Analytics";
 import DashboardComponent from "./DashboardComponent";
 
-function Dashboard({ userEmail, setIsAuthenticated }) {
+function Dashboard() {
   const navigate = useNavigate();
   const [isDashboard, setIsDashboard] = useState(true);
   const [isAnalytics, setIsAnalytics] = useState(false);
@@ -19,6 +19,18 @@ function Dashboard({ userEmail, setIsAuthenticated }) {
   const [quizType, setQuizType] = useState("Q&A");
   const [quizId, setQuizId] = useState("");
   const [createdQuizId, setCreatedQuizId] = useState("");
+  const [userEmail, setUserEmail] = useState(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const user = localStorage.getItem("email");
+
+    if (!token || !user) {
+      navigate("/");
+    } else {
+      setUserEmail(user);
+    }
+  }, [navigate]);
 
   const handleDashboard = () => {
     setIsDashboard(true);
@@ -61,7 +73,8 @@ function Dashboard({ userEmail, setIsAuthenticated }) {
 
   const handleLogout = () => {
     alert("Logged out");
-    setIsAuthenticated(false);
+    localStorage.removeItem("token");
+    localStorage.removeItem("email");
     navigate("/");
   };
 

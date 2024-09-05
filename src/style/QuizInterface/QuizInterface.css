@@ -107,3 +107,10 @@
 .QuizInterface-scorecard {
   color: #60b84b;
 }
+
+.QuizInterface-completion-header-pollType {
+  font-size: 74px;
+  color: #474444;
+  width: 50%;
+  text-align: center;
+}

@@ -64,6 +64,19 @@ const QuestionWiseAnalysis = () => {
               <h4>
                 Question {index + 1}: {question.question}
               </h4>
+
+              {quiz.quizType === "Poll Type" ? (
+                <div className="answer-options">
+                  {question.answerOptions.map((option, optionIndex) => (
+                    <p key={optionIndex} className="option poll-option-div">
+                      <span className="poll-count">
+                        {question.answerOptionCount[optionIndex] || 0}
+                      </span>{" "}
+                      <span className="poll-option">{option}</span>{" "}
+                    </p>
+                  ))}
+                </div>
+              ) : (
               <div className="answer-options">
                 <p className="option">
                   <span className="total-numbers">{attempted}</span> <br />{" "}
@@ -78,6 +91,7 @@ const QuestionWiseAnalysis = () => {
                   people Answered Incorrectly
                 </p>
               </div>
+              )}
 
               <hr style={{ marginTop: "50px" }} />
             </div>
