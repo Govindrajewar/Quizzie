@@ -14,7 +14,7 @@ function DashboardComponent({ userEmail }) {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://quizzie-server-0461.onrender.com/quizData/`
+          `http://localhost:4000/quizData/`
         );
         const data = await response.json();
 
