@@ -96,6 +96,8 @@ function QuizInterface() {
         updatedAnswers[questionNumber] = selectedOption;
         return updatedAnswers;
       });
+
+      updateAnswerOptionCount(quizId, (questionNumber+1), (selectedOption+1));
     }
 
     if (quizData) {
@@ -137,6 +139,16 @@ function QuizInterface() {
       );
     } catch (error) {
       console.error("Error updating answeredCorrectly count:", error);
+    }
+  };
+
+  const updateAnswerOptionCount = async (quizId, questionIndex, optionIndex) => {
+    try {
+      await axios.put(
+        `http://localhost:4000/quiz/${quizId}/question/${questionIndex}/option/${optionIndex}/count`
+      );
+    } catch (error) {
+      console.error("Error updating answer option count:", error);
     }
   };
 
