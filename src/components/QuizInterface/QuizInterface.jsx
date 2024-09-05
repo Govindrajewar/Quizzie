@@ -14,6 +14,7 @@ function QuizInterface() {
   // eslint-disable-next-line
   const [userAnswers, setUserAnswers] = useState([]);
   const [correctAnswers, setCorrectAnswers] = useState([]);
+  const [quizType, setQuizType] = useState("");
 
   const formatTime = (timeInSeconds) => {
     const minutes = Math.floor(timeInSeconds / 60);
@@ -39,10 +40,14 @@ function QuizInterface() {
         .get(`http://localhost:4000/quiz/${quizId}`)
         .then((response) => {
           setQuizData(response.data);
-          const answers = response.data.questions.map(
-            (question) => question.correctAnswer - 1
-          );
-          setCorrectAnswers(answers);
+          setQuizType(response.data.quizType);
+
+          if (response.data.quizType !== "Poll Type") {
+            const answers = response.data.questions.map(
+              (question) => question.correctAnswer - 1
+            );
+            setCorrectAnswers(answers);
+          }
         })
         .catch((error) => {
           console.error("There was an error fetching the quiz data!", error);
@@ -51,7 +56,7 @@ function QuizInterface() {
   }, [quizId]);
 
   useEffect(() => {
-    if (quizData) {
+    if (quizData && quizType !== "Poll Type") {
       const currentQuestion = quizData.questions[questionNumber];
       const initialTime =
         currentQuestion.timer === "OFF"
@@ -94,7 +99,10 @@ function QuizInterface() {
     }
 
     if (quizData) {
-      if (selectedOption === correctAnswers[questionNumber]) {
+      if (
+        quizType !== "Poll Type" &&
+        selectedOption === correctAnswers[questionNumber]
+      ) {
         updateAnsweredCorrectlyCount(quizId, questionNumber);
         setScore((prevScore) => prevScore + 1);
       }
@@ -116,9 +124,7 @@ function QuizInterface() {
 
   const updateImpressions = async (quizId) => {
     try {
-      await axios.put(
-        `http://localhost:4000/quiz/${quizId}/impressions`
-      );
+      await axios.put(`http://localhost:4000/quiz/${quizId}/impressions`);
     } catch (error) {
       console.error("Error updating impressions:", error);
     }
@@ -177,16 +183,24 @@ function QuizInterface() {
 
       {isQuizCompleted && (
         <div className="QuizInterface-completion-message">
-          <div className="QuizInterface-completion-header">
-            Congrats, the quiz is completed
-          </div>
-          <img src={trophy} alt="trophy" />
-          <div className="QuizInterface-completion-scorecard">
-            Your Score is{" "}
-            <span className="QuizInterface-scorecard">
-              {score}/{quizData.questions.length}
-            </span>
-          </div>
+          {quizType !== "Poll Type" ? (
+            <>
+              <div className="QuizInterface-completion-header">
+                Congrats, the quiz is completed
+              </div>
+              <img src={trophy} alt="trophy" />
+              <div className="QuizInterface-completion-scorecard">
+                Your Score is{" "}
+                <span className="QuizInterface-scorecard">
+                  {score}/{quizData.questions.length}
+                </span>
+              </div>
+            </>
+          ) : (
+            <div className="QuizInterface-completion-header-pollType">
+              Thank you for participating in the Poll
+            </div>
+          )}
         </div>
       )}
     </div>
