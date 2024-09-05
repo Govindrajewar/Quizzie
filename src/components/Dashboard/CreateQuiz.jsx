@@ -38,8 +38,8 @@ function CreateQuiz({
     return (
       questionInput !== "" &&
       optionsNotEmpty &&
-      (quizType === 'Poll Type' || selectedOption !== null) &&
-      (quizType === 'Poll Type' || selectedLi !== null)
+      (quizType === "Poll Type" || selectedOption !== null) &&
+      (quizType === "Poll Type" || selectedLi !== null)
     );
   };
 
@@ -130,8 +130,15 @@ function CreateQuiz({
           : isImageOptions
           ? imageOptions
           : textImageOptions,
-        ...(quizType !== 'Poll Type' && { correctAnswer: selectedOption }),
-        timer: quizType === 'Poll Type' ? "OFF" : (selectedLi === 1 ? "OFF" : selectedLi === 2 ? "5 sec" : "10 sec"),
+        ...(quizType !== "Poll Type" && { correctAnswer: selectedOption }),
+        timer:
+          quizType === "Poll Type"
+            ? "OFF"
+            : selectedLi === 1
+            ? "OFF"
+            : selectedLi === 2
+            ? "5 sec"
+            : "10 sec",
       };
 
       setQuestionsData([...questionsData, newQuestionData]);
@@ -164,8 +171,10 @@ function CreateQuiz({
           "Question is required.\n" +
           "Option type is required.\n" +
           "You must enter all options.\n" +
-          (quizType !== 'Poll Type' ? "You must select a correct answer.\n" : "") +
-          (quizType !== 'Poll Type' ? "You must select a Timer." : "")
+          (quizType !== "Poll Type"
+            ? "You must select a correct answer.\n"
+            : "") +
+          (quizType !== "Poll Type" ? "You must select a Timer." : "")
       );
     }
   };
@@ -266,7 +275,7 @@ function CreateQuiz({
                     value={index + 1}
                     checked={selectedOption === index + 1}
                     onChange={() => handleOptionChange(index + 1)}
-                    disabled={quizType === 'Poll Type'}
+                    disabled={quizType === "Poll Type"}
                   />
                   <label
                     htmlFor={`text-option-${index + 1}`}
@@ -295,7 +304,7 @@ function CreateQuiz({
               )}
             </div>
           </div>
-          {quizType !== 'Poll Type' && isQuizTypeQA && (
+          {quizType !== "Poll Type" && isQuizTypeQA && (
             <ClockTimer selectedLi={selectedLi} handleClick={handleClick} />
           )}
         </div>
@@ -315,7 +324,7 @@ function CreateQuiz({
                     value={index + 1}
                     checked={selectedOption === index + 1}
                     onChange={() => handleOptionChange(index + 1)}
-                    disabled={quizType === 'Poll Type'}
+                    disabled={quizType === "Poll Type"}
                   />
                   <label
                     htmlFor={`image-option-${index + 1}`}
@@ -344,7 +353,7 @@ function CreateQuiz({
               )}
             </div>
           </div>
-          {quizType !== 'Poll Type' && isQuizTypeQA && (
+          {quizType !== "Poll Type" && isQuizTypeQA && (
             <ClockTimer selectedLi={selectedLi} handleClick={handleClick} />
           )}
         </div>
@@ -364,7 +373,7 @@ function CreateQuiz({
                     value={index + 1}
                     checked={selectedOption === index + 1}
                     onChange={() => handleOptionChange(index + 1)}
-                    disabled={quizType === 'Poll Type'}
+                    disabled={quizType === "Poll Type"}
                   />
                   <label
                     htmlFor={`text-image-option-${index + 1}`}
@@ -416,7 +425,7 @@ function CreateQuiz({
               )}
             </div>
           </div>
-          {quizType !== 'Poll Type' && isQuizTypeQA && (
+          {quizType !== "Poll Type" && isQuizTypeQA && (
             <ClockTimer selectedLi={selectedLi} handleClick={handleClick} />
           )}
         </div>

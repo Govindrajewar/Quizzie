@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoginUser } from "../../api/User.js";
 
-function Login({ setUserEmail, setIsAuthenticated }) {
+function Login({ setUserEmail }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -12,10 +12,9 @@ function Login({ setUserEmail, setIsAuthenticated }) {
       const response = await LoginUser(email, password, "login");
       if (response.status === 200) {
         alert("Login Successful!");
-        setIsAuthenticated(true);
 
         setUserEmail(email);
-        // TODO: Optionally store the token in localStorage or a context
+        localStorage.setItem("email", email);
         localStorage.setItem("token", response.data.token);
         navigate("/dashboard");
       } else {
