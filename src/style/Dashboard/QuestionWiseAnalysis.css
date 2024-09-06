@@ -4,6 +4,7 @@
   background-color: #f2f2f2;
   display: flex;
   flex-direction: column;
+  margin: 0 auto;
 }
 
 .QuizDetail-header {
@@ -48,7 +49,6 @@
 
 .answer-options {
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
   gap: 10px;
 }
@@ -57,9 +57,38 @@
   padding: 10px;
   background-color: #ffffff;
   border-radius: 5px;
-  flex: 1 1 auto;
+  flex: 1 1 45%;
   text-align: center;
-  max-width: 200px;
+  max-width: 45%;
+  margin: 10px 0;
+}
+
+.answer-options-poll {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.answer-options-poll .option {
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  flex: 1 1 45%;
+  max-width: 45%;
+  text-align: center;
+  margin: 10px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.option-image {
+  max-width: 50%;
+  height: auto;
+  display: block;
+  margin-left: 10px;
+  border-radius: 5px;
 }
 
 .question-block .total-numbers {
@@ -82,7 +111,15 @@
 
 .poll-option-div {
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .answer-options .option {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
 }

@@ -65,13 +65,24 @@ const QuestionWiseAnalysis = () => {
               </h4>
 
               {quiz.quizType === "Poll Type" ? (
-                <div className="answer-options">
+                <div className="answer-options-poll">
                   {question.answerOptions.map((option, optionIndex) => (
-                    <p key={optionIndex} className="option poll-option-div">
+                    <p key={option._id} className="option poll-option-div">
                       <span className="poll-count">
                         {question.answerOptionCount[optionIndex] || 0}
-                      </span>{" "}
-                      <span className="poll-option">{option}</span>{" "}
+                      </span>
+                      <span className="poll-option">
+                        {question.optionType === "Text & Image" || question.optionType === "Image" ? (
+                          <img
+                            src={option.image}
+                            alt={`Option ${optionIndex + 1}`}
+                            className="option-image"
+                          />
+                        ) : null}
+                        {question.optionType === "Text & Image" || question.optionType === "Text" ? (
+                          <span>{option.text || ""}</span>
+                        ) : null}
+                      </span>
                     </p>
                   ))}
                 </div>
