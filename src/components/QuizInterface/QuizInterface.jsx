@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../../style/QuizInterface/QuizInterface.css";
 import trophy from "../../assets/QuizInterface/trophy.png";
 import axios from "axios";
-import BACKEND_URL from "../../Links.js"
+import { BACKEND_URL } from "../../Links.js";
 
 function QuizInterface() {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -98,7 +98,7 @@ function QuizInterface() {
         return updatedAnswers;
       });
 
-      updateAnswerOptionCount(quizId, (questionNumber), (selectedOption));
+      updateAnswerOptionCount(quizId, questionNumber, selectedOption);
     }
 
     if (quizData) {
@@ -143,7 +143,11 @@ function QuizInterface() {
     }
   };
 
-  const updateAnswerOptionCount = async (quizId, questionIndex, optionIndex) => {
+  const updateAnswerOptionCount = async (
+    quizId,
+    questionIndex,
+    optionIndex
+  ) => {
     try {
       await axios.put(
         `${BACKEND_URL}/quiz/${quizId}/question/${questionIndex}/option/${optionIndex}/count`

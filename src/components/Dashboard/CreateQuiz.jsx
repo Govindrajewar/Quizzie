@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import "../../style/Dashboard/CreateQuiz.css";
 import ClockTimer from "./ClockTimer";
-import BACKEND_URL from "../../Links.js"
+import { BACKEND_URL } from "../../Links.js";
 
 function CreateQuiz({
   isQuizTypeQA,

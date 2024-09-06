@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import eyeIcon from "../../assets/Dashboard/outline-eyes-icon.png";
-import BACKEND_URL from "../../Links.js"
+import { BACKEND_URL } from "../../Links.js";
 
 function DashboardComponent({ userEmail }) {
   const [quizData, setQuizData] = useState([]);
@@ -14,9 +14,7 @@ function DashboardComponent({ userEmail }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          `${BACKEND_URL}/quizData/`
-        );
+        const response = await fetch(`${BACKEND_URL}/quizData/`);
         const data = await response.json();
 
         const userQuizzes = data.filter(

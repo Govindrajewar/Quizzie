@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "../../style/Dashboard/QuestionWiseAnalysis.css";
-import BACKEND_URL from "../../Links.js"
+import { BACKEND_URL } from "../../Links.js";
 
 const QuestionWiseAnalysis = () => {
   const { id } = useParams();
@@ -12,9 +12,7 @@ const QuestionWiseAnalysis = () => {
   useEffect(() => {
     const fetchQuizDetails = async () => {
       try {
-        const response = await fetch(
-          `${BACKEND_URL}/quiz/${id}`
-        );
+        const response = await fetch(`${BACKEND_URL}/quiz/${id}`);
         if (!response.ok) {
           throw new Error("Failed to fetch quiz details");
         }
@@ -78,20 +76,20 @@ const QuestionWiseAnalysis = () => {
                   ))}
                 </div>
               ) : (
-              <div className="answer-options">
-                <p className="option">
-                  <span className="total-numbers">{attempted}</span> <br />{" "}
-                  people Attempted the question
-                </p>
-                <p className="option">
-                  <span className="total-numbers">{correct}</span> <br /> people
-                  Answered Correctly
-                </p>
-                <p className="option">
-                  <span className="total-numbers">{incorrect}</span> <br />{" "}
-                  people Answered Incorrectly
-                </p>
-              </div>
+                <div className="answer-options">
+                  <p className="option">
+                    <span className="total-numbers">{attempted}</span> <br />{" "}
+                    people Attempted the question
+                  </p>
+                  <p className="option">
+                    <span className="total-numbers">{correct}</span> <br />{" "}
+                    people Answered Correctly
+                  </p>
+                  <p className="option">
+                    <span className="total-numbers">{incorrect}</span> <br />{" "}
+                    people Answered Incorrectly
+                  </p>
+                </div>
               )}
 
               <hr style={{ marginTop: "50px" }} />
