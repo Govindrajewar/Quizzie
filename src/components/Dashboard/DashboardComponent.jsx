@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import eyeIcon from "../../assets/Dashboard/outline-eyes-icon.png";
+import { BACKEND_URL } from "../../Links.js";
 
 function DashboardComponent({ userEmail }) {
   const [quizData, setQuizData] = useState([]);
@@ -10,12 +11,11 @@ function DashboardComponent({ userEmail }) {
   });
 
   const currentUserEmail = userEmail;
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          `https://quizzie-server-0461.onrender.com/quizData/`
-        );
+        const response = await fetch(`${BACKEND_URL}/quizData/`);
         const data = await response.json();
 
         const userQuizzes = data.filter(
@@ -32,7 +32,13 @@ function DashboardComponent({ userEmail }) {
           return acc + (quiz.impressions || 0);
         }, 0);
 
-        setQuizData(userQuizzes);
+        // Sort quizzes by impressions (highest to lowest)
+        const sortedQuizzes = userQuizzes
+          .sort((a, b) => (b.impressions || 0) - (a.impressions || 0))
+          // Display the first 12 quiz which has highest impress
+          .slice(0, 12);
+
+        setQuizData(sortedQuizzes);
         setDashboardStats({
           totalQuizzes,
           totalQuestions,

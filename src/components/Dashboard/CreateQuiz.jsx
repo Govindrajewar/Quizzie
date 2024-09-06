@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import "../../style/Dashboard/CreateQuiz.css";
 import ClockTimer from "./ClockTimer";
+import { BACKEND_URL } from "../../Links.js";
 
 function CreateQuiz({
   isQuizTypeQA,
@@ -24,7 +25,10 @@ function CreateQuiz({
   const [questionInput, setQuestionInput] = useState("");
   const [textOptions, setTextOptions] = useState(["", ""]);
   const [imageOptions, setImageOptions] = useState(["", ""]);
-  const [textImageOptions, setTextImageOptions] = useState(["", ""]);
+  const [textImageOptions, setTextImageOptions] = useState([
+    { text: "", image: "" },
+    { text: "", image: "" },
+  ]);
 
   const [questionsData, setQuestionsData] = useState([]);
 
@@ -33,7 +37,9 @@ function CreateQuiz({
       ? textOptions.every((option) => option.trim() !== "")
       : isImageOptions
       ? imageOptions.every((option) => option.trim() !== "")
-      : textImageOptions.every((option) => option.trim() !== "");
+      : textImageOptions.every(
+          (option) => option.text.trim() !== "" && option.image.trim() !== ""
+        );
 
     return (
       questionInput !== "" &&
@@ -98,7 +104,7 @@ function CreateQuiz({
 
       try {
         const response = await axios.post(
-          `https://quizzie-server-0461.onrender.com/createQuiz`,
+          `${BACKEND_URL}/createQuiz`,
           newQuizData
         );
 
@@ -126,10 +132,10 @@ function CreateQuiz({
           ? "Image"
           : "Text & Image",
         answerOptions: isTextOptions
-          ? textOptions
+          ? textOptions.map((option) => ({ text: option }))
           : isImageOptions
-          ? imageOptions
-          : textImageOptions,
+          ? imageOptions.map((option) => ({ image: option }))
+          : textImageOptions.map(({ text, image }) => ({ text, image })),
         ...(quizType !== "Poll Type" && { correctAnswer: selectedOption }),
         timer:
           quizType === "Poll Type"
@@ -141,6 +147,7 @@ function CreateQuiz({
             : "10 sec",
       };
 
+      console.log(newQuestionData);
       setQuestionsData([...questionsData, newQuestionData]);
 
       // Reset states for new question
@@ -148,19 +155,12 @@ function CreateQuiz({
       setSelectedOption(null);
       setSelectedLi(null);
 
-      if (isTextOptions) {
-        setTextOptions(["", ""]);
-        setImageOptions(["", ""]);
-        setTextImageOptions(["", ""]);
-      } else if (isImageOptions) {
-        setTextOptions(["", ""]);
-        setImageOptions(["", ""]);
-        setTextImageOptions(["", ""]);
-      } else if (isTextImageOptions) {
-        setTextOptions(["", ""]);
-        setImageOptions(["", ""]);
-        setTextImageOptions(["", ""]);
-      }
+      setTextOptions(["", ""]);
+      setImageOptions(["", ""]);
+      setTextImageOptions([
+        { text: "", image: "" },
+        { text: "", image: "" },
+      ]);
 
       if (questionNumbers.length < 5) {
         setQuestionNumbers([...questionNumbers, questionNumbers.length + 1]);
@@ -198,7 +198,7 @@ function CreateQuiz({
 
   const handleAddTextImageOption = () => {
     if (textImageOptions.length < 4) {
-      setTextImageOptions([...textImageOptions, ""]);
+      setTextImageOptions([...textImageOptions, { text: "", image: "" }]);
     }
   };
 
@@ -365,7 +365,7 @@ function CreateQuiz({
           <div className="option-list">
             <div className="answerOptions">
               {textImageOptions.map((option, index) => (
-                <div key={index} className="option-container">
+                <div key={index} className="option-container-text-image-option">
                   <input
                     type="radio"
                     id={`text-image-option-${index + 1}`}
@@ -377,49 +377,50 @@ function CreateQuiz({
                   />
                   <label
                     htmlFor={`text-image-option-${index + 1}`}
-                    className="option-label"
+                    className="option-label text-image-option-label"
                   >
-                    <div>
-                      <input
-                        type="text"
-                        placeholder="Text"
-                        value={option.text || ""}
-                        onChange={(e) => {
-                          const newOptions = [...textImageOptions];
-                          newOptions[index] = {
-                            ...newOptions[index],
-                            text: e.target.value,
-                          };
-                          setTextImageOptions(newOptions);
-                        }}
-                        className={`option-input ${
-                          selectedOption === index + 1 ? "selected" : ""
-                        }`}
-                      />
-                    </div>
-                    <div>
-                      <input
-                        type="text"
-                        placeholder="Image URL"
-                        value={option.image || ""}
-                        onChange={(e) => {
-                          const newOptions = [...textImageOptions];
-                          newOptions[index] = {
-                            ...newOptions[index],
-                            image: e.target.value,
-                          };
-                          setTextImageOptions(newOptions);
-                        }}
-                        className={`option-input ${
-                          selectedOption === index + 1 ? "selected" : ""
-                        }`}
-                      />
-                    </div>
+                    <input
+                      type="text"
+                      placeholder="Text"
+                      value={option.text || ""}
+                      onChange={(e) => {
+                        const newOptions = [...textImageOptions];
+                        newOptions[index] = {
+                          ...newOptions[index],
+                          text: e.target.value,
+                        };
+                        setTextImageOptions(newOptions);
+                      }}
+                      className={`option-input ${
+                        selectedOption === index + 1 ? "selected" : ""
+                      }`}
+                    />
+
+                    <input
+                      type="text"
+                      placeholder="Image URL"
+                      value={option.image || ""}
+                      onChange={(e) => {
+                        const newOptions = [...textImageOptions];
+                        newOptions[index] = {
+                          ...newOptions[index],
+                          image: e.target.value,
+                        };
+                        setTextImageOptions(newOptions);
+                      }}
+                      className={`option-input ${
+                        selectedOption === index + 1 ? "selected" : ""
+                      }`}
+                      style={{ marginLeft: "20px" }}
+                    />
                   </label>
                 </div>
               ))}
               {textImageOptions.length < 4 && (
-                <div className="add-option" onClick={handleAddTextImageOption}>
+                <div
+                  className="add-option textImageOptions"
+                  onClick={handleAddTextImageOption}
+                >
                   Add Option
                 </div>
               )}

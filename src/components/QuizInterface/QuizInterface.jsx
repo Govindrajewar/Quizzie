@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../../style/QuizInterface/QuizInterface.css";
 import trophy from "../../assets/QuizInterface/trophy.png";
 import axios from "axios";
+import { BACKEND_URL } from "../../Links.js";
 
 function QuizInterface() {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -37,7 +38,7 @@ function QuizInterface() {
 
     if (quizId) {
       axios
-        .get(`https://quizzie-server-0461.onrender.com/quiz/${quizId}`)
+        .get(`${BACKEND_URL}/quiz/${quizId}`)
         .then((response) => {
           setQuizData(response.data);
           setQuizType(response.data.quizType);
@@ -97,7 +98,7 @@ function QuizInterface() {
         return updatedAnswers;
       });
 
-      updateAnswerOptionCount(quizId, (questionNumber), (selectedOption));
+      updateAnswerOptionCount(quizId, questionNumber, selectedOption);
     }
 
     if (quizData) {
@@ -126,7 +127,7 @@ function QuizInterface() {
 
   const updateImpressions = async (quizId) => {
     try {
-      await axios.put(`https://quizzie-server-0461.onrender.com/quiz/${quizId}/impressions`);
+      await axios.put(`${BACKEND_URL}/quiz/${quizId}/impressions`);
     } catch (error) {
       console.error("Error updating impressions:", error);
     }
@@ -135,17 +136,21 @@ function QuizInterface() {
   const updateAnsweredCorrectlyCount = async (quizId, questionIndex) => {
     try {
       await axios.put(
-        `https://quizzie-server-0461.onrender.com/quiz/${quizId}/question/${questionIndex}/correct`
+        `${BACKEND_URL}/quiz/${quizId}/question/${questionIndex}/correct`
       );
     } catch (error) {
       console.error("Error updating answeredCorrectly count:", error);
     }
   };
 
-  const updateAnswerOptionCount = async (quizId, questionIndex, optionIndex) => {
+  const updateAnswerOptionCount = async (
+    quizId,
+    questionIndex,
+    optionIndex
+  ) => {
     try {
       await axios.put(
-        `https://quizzie-server-0461.onrender.com/quiz/${quizId}/question/${questionIndex}/option/${optionIndex}/count`
+        `${BACKEND_URL}/quiz/${quizId}/question/${questionIndex}/option/${optionIndex}/count`
       );
     } catch (error) {
       console.error("Error updating answer option count:", error);
@@ -182,7 +187,24 @@ function QuizInterface() {
                 }`}
                 onClick={() => handleOptionClick(index)}
               >
-                {option}
+                {quizData.questions[questionNumber].optionType === "Text & Image" ? (
+                  <div className="option-content">
+                    <img
+                      src={option.image}
+                      alt={`Option ${index + 1}`}
+                      className="QuizInterface-option-image"
+                    />
+                    <span>{option.text}</span>
+                  </div>
+                ) : quizData.questions[questionNumber].optionType === "Image" ? (
+                  <img
+                    src={option.image}
+                    alt={`Option ${index + 1}`}
+                    className="QuizInterface-option-image"
+                  />
+                ) : (
+                  <span>{option.text}</span>
+                )}
               </div>
             )
           )}

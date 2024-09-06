@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "../../style/Dashboard/QuestionWiseAnalysis.css";
+import { BACKEND_URL } from "../../Links.js";
 
 const QuestionWiseAnalysis = () => {
   const { id } = useParams();
@@ -11,9 +12,7 @@ const QuestionWiseAnalysis = () => {
   useEffect(() => {
     const fetchQuizDetails = async () => {
       try {
-        const response = await fetch(
-          `https://quizzie-server-0461.onrender.com/quiz/${id}`
-        );
+        const response = await fetch(`${BACKEND_URL}/quiz/${id}`);
         if (!response.ok) {
           throw new Error("Failed to fetch quiz details");
         }
@@ -66,31 +65,42 @@ const QuestionWiseAnalysis = () => {
               </h4>
 
               {quiz.quizType === "Poll Type" ? (
-                <div className="answer-options">
+                <div className="answer-options-poll">
                   {question.answerOptions.map((option, optionIndex) => (
-                    <p key={optionIndex} className="option poll-option-div">
+                    <p key={option._id} className="option poll-option-div">
                       <span className="poll-count">
                         {question.answerOptionCount[optionIndex] || 0}
-                      </span>{" "}
-                      <span className="poll-option">{option}</span>{" "}
+                      </span>
+                      <span className="poll-option">
+                        {question.optionType === "Text & Image" || question.optionType === "Image" ? (
+                          <img
+                            src={option.image}
+                            alt={`Option ${optionIndex + 1}`}
+                            className="option-image"
+                          />
+                        ) : null}
+                        {question.optionType === "Text & Image" || question.optionType === "Text" ? (
+                          <span>{option.text || ""}</span>
+                        ) : null}
+                      </span>
                     </p>
                   ))}
                 </div>
               ) : (
-              <div className="answer-options">
-                <p className="option">
-                  <span className="total-numbers">{attempted}</span> <br />{" "}
-                  people Attempted the question
-                </p>
-                <p className="option">
-                  <span className="total-numbers">{correct}</span> <br /> people
-                  Answered Correctly
-                </p>
-                <p className="option">
-                  <span className="total-numbers">{incorrect}</span> <br />{" "}
-                  people Answered Incorrectly
-                </p>
-              </div>
+                <div className="answer-options">
+                  <p className="option">
+                    <span className="total-numbers">{attempted}</span> <br />{" "}
+                    people Attempted the question
+                  </p>
+                  <p className="option">
+                    <span className="total-numbers">{correct}</span> <br />{" "}
+                    people Answered Correctly
+                  </p>
+                  <p className="option">
+                    <span className="total-numbers">{incorrect}</span> <br />{" "}
+                    people Answered Incorrectly
+                  </p>
+                </div>
               )}
 
               <hr style={{ marginTop: "50px" }} />

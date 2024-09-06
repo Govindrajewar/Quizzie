@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import "../../style/Dashboard/ShareQuizLink.css";
 import done from "../../assets/CreateQuiz/done.png";
+import { FRONTEND_URL } from "../../Links";
 
 function ShareQuizLink({ setIsShareQuizLink, createdQuizId }) {
-  const sharableLink = `https://quizzie-blush.vercel.app/quiz/${createdQuizId}`;
+  const sharableLink = `${FRONTEND_URL}/quiz/${createdQuizId}`;
 
   const [isShareLink, setIsShareLink] = useState(false);
   const [isCloseLink, setIsCloseLink] = useState(true);
