@@ -1,9 +1,10 @@
 import axios from "axios";
+import BACKEND_URL from "../Links.js"
 
 const SignUpUser = async (name, email, password, action) => {
   try {
     const response = await axios.post(
-      `https://quizzie-server-0461.onrender.com/`,
+      `${BACKEND_URL}/`,
       {
         name,
         email,
@@ -21,7 +22,7 @@ const SignUpUser = async (name, email, password, action) => {
 const LoginUser = async (email, password, action) => {
   try {
     const response = await axios.post(
-      `https://quizzie-server-0461.onrender.com/`,
+      `${BACKEND_URL}/`,
       {
         email,
         password,

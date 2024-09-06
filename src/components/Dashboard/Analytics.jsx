@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FaEdit, FaTrashAlt, FaShareAlt } from "react-icons/fa";
 import "../../style/Dashboard/Analytics.css";
 import done from "../../assets/CreateQuiz/done.png";
+import BACKEND_URL from "../../Links.js"
 
 const Analytics = ({ userEmail }) => {
   const [isDeleteQuiz, setIsDeleteQuiz] = useState(false);
@@ -16,7 +17,7 @@ const Analytics = ({ userEmail }) => {
     const fetchQuizzes = async () => {
       try {
         const response = await fetch(
-          `https://quizzie-server-0461.onrender.com/quizData`
+          `${BACKEND_URL}/quizData`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch quiz data");
@@ -43,7 +44,7 @@ const Analytics = ({ userEmail }) => {
 
     try {
       const response = await fetch(
-        `https://quizzie-server-0461.onrender.com/quiz/${quizToDelete}`,
+        `${BACKEND_URL}/quiz/${quizToDelete}`,
         {
           method: "DELETE",
         }

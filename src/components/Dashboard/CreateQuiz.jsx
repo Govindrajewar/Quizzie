@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import "../../style/Dashboard/CreateQuiz.css";
 import ClockTimer from "./ClockTimer";
+import BACKEND_URL from "../../Links.js"
 
 function CreateQuiz({
   isQuizTypeQA,
@@ -98,7 +99,7 @@ function CreateQuiz({
 
       try {
         const response = await axios.post(
-          `https://quizzie-server-0461.onrender.com/createQuiz`,
+          `${BACKEND_URL}/createQuiz`,
           newQuizData
         );
 
