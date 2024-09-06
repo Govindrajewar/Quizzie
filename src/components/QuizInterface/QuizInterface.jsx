@@ -187,7 +187,15 @@ function QuizInterface() {
                 }`}
                 onClick={() => handleOptionClick(index)}
               >
-                {option}
+                {quizData.questions[questionNumber].optionType === "Image" ? (
+                  <img
+                    src={option}
+                    alt={`Option ${index + 1}`}
+                    className="QuizInterface-option-image"
+                  />
+                ) : (
+                  option
+                )}
               </div>
             )
           )}
