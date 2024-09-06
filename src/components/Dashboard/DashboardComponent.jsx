@@ -11,6 +11,7 @@ function DashboardComponent({ userEmail }) {
   });
 
   const currentUserEmail = userEmail;
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -31,7 +32,13 @@ function DashboardComponent({ userEmail }) {
           return acc + (quiz.impressions || 0);
         }, 0);
 
-        setQuizData(userQuizzes);
+        // Sort quizzes by impressions (highest to lowest)
+        const sortedQuizzes = userQuizzes
+          .sort((a, b) => (b.impressions || 0) - (a.impressions || 0))
+          // Display the first 12 quiz which has highest impress
+          .slice(0, 12);
+
+        setQuizData(sortedQuizzes);
         setDashboardStats({
           totalQuizzes,
           totalQuestions,
