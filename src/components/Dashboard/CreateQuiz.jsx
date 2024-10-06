@@ -42,12 +42,30 @@ function CreateQuiz({
           (option) => option.text.trim() !== "" && option.image.trim() !== ""
         );
 
-    return (
-      questionInput !== "" &&
-      optionsNotEmpty &&
-      (quizType === "Poll Type" || selectedOption !== null) &&
-      (quizType === "Poll Type" || selectedLi !== null)
-    );
+    const validationErrors = [];
+
+    if (questionInput.trim() === "") {
+      validationErrors.push("Question is required.");
+    }
+
+    if (!optionsNotEmpty) {
+      validationErrors.push("All options must be filled.");
+    }
+
+    if (quizType !== "Poll Type" && selectedOption === null) {
+      validationErrors.push("You must select a correct answer.");
+    }
+
+    if (quizType !== "Poll Type" && selectedLi === null) {
+      validationErrors.push("You must select a timer.");
+    }
+
+    if (validationErrors.length > 0) {
+      alert("Validation Errors:\n" + validationErrors.join("\n"));
+      return false;
+    }
+
+    return true;
   };
 
   const handleTextOptions = () => {
@@ -166,17 +184,6 @@ function CreateQuiz({
       if (questionNumbers.length < 5) {
         setQuestionNumbers([...questionNumbers, questionNumbers.length + 1]);
       }
-    } else {
-      alert(
-        "Validation Errors:\n" +
-          "Question is required.\n" +
-          "Option type is required.\n" +
-          "You must enter all options.\n" +
-          (quizType !== "Poll Type"
-            ? "You must select a correct answer.\n"
-            : "") +
-          (quizType !== "Poll Type" ? "You must select a Timer." : "")
-      );
     }
   };
 
