@@ -74,19 +74,25 @@ function DashboardComponent({ userEmail }) {
 
       <h2>Trending Quizzes</h2>
       <div className="quiz-statistics">
-        <div className="quizData">
-          {quizData.map((quiz) => (
-            <div key={quiz._id} className="quiz-data">
-              <span className="quiz-title">{quiz.quizName}</span>
-              <span className="quiz-impression">
-                {quiz.impressions || 0}
-                <img src={eyeIcon} alt="eye icon" />
-              </span>
-              <br />
-              <span className="date-created">Created on: {quiz.createdOn}</span>
-            </div>
-          ))}
-        </div>
+        {quizData.length === 0 ? (
+          <div className="quizData-message">No Quiz Data Available</div>
+        ) : (
+          <div className="quizData">
+            {quizData.map((quiz) => (
+              <div key={quiz._id} className="quiz-data">
+                <span className="quiz-title">{quiz.quizName}</span>
+                <span className="quiz-impression">
+                  {quiz.impressions || 0}
+                  <img src={eyeIcon} alt="eye icon" />
+                </span>
+                <br />
+                <span className="date-created">
+                  Created on: {quiz.createdOn}
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

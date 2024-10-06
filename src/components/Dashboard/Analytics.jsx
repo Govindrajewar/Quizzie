@@ -96,37 +96,43 @@ const Analytics = ({ userEmail }) => {
           <div className="header-cell">Impression</div>
           <div className="header-cell"> </div>
         </div>
-        {quizzes.map((quiz, index) => (
-          <div
-            key={quiz._id}
-            className="body-row"
-            style={{ backgroundColor: index % 2 === 0 ? "" : "#B3C4FF" }}
-          >
-            <div className="body-cell">{index + 1}</div>
-            <div className="body-cell">{quiz.quizName}</div>
-            <div className="body-cell">{quiz.createdOn}</div>
-            <div className="body-cell">{quiz.impressions || 0}</div>
-            <div className="body-cell">
-              <FaEdit className="icon" id="FaEdit" />
-              <FaTrashAlt
-                className="icon"
-                id="FaTrashAlt"
-                onClick={() => {
-                  setQuizToDelete(quiz._id);
-                  setIsDeleteQuiz(true);
-                }}
-              />
-              <FaShareAlt
-                className="icon"
-                id="FaShareAlt"
-                onClick={() => handleCopyQuizLink(quiz._id)}
-              />
-              <a href={`/quiz-detail/${quiz._id}`} className="link">
-                Question Wise Analysis
-              </a>
-            </div>
-          </div>
-        ))}
+        {quizzes.length === 0 ? (
+          <div className="quizData-message">No Quiz Data Available</div>
+        ) : (
+          <>
+            {quizzes.map((quiz, index) => (
+              <div
+                key={quiz._id}
+                className="body-row"
+                style={{ backgroundColor: index % 2 === 0 ? "" : "#B3C4FF" }}
+              >
+                <div className="body-cell">{index + 1}</div>
+                <div className="body-cell">{quiz.quizName}</div>
+                <div className="body-cell">{quiz.createdOn}</div>
+                <div className="body-cell">{quiz.impressions || 0}</div>
+                <div className="body-cell">
+                  <FaEdit className="icon" id="FaEdit" />
+                  <FaTrashAlt
+                    className="icon"
+                    id="FaTrashAlt"
+                    onClick={() => {
+                      setQuizToDelete(quiz._id);
+                      setIsDeleteQuiz(true);
+                    }}
+                  />
+                  <FaShareAlt
+                    className="icon"
+                    id="FaShareAlt"
+                    onClick={() => handleCopyQuizLink(quiz._id)}
+                  />
+                  <a href={`/quiz-detail/${quiz._id}`} className="link">
+                    Question Wise Analysis
+                  </a>
+                </div>
+              </div>
+            ))}
+          </>
+        )}
       </div>
 
       {isDeleteQuiz && (
