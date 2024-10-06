@@ -3,6 +3,7 @@ import axios from "axios";
 import "../../style/Dashboard/CreateQuiz.css";
 import ClockTimer from "./ClockTimer";
 import { BACKEND_URL } from "../../Links.js";
+import optionDelete from "../../assets/CreateQuiz/delete.png";
 
 function CreateQuiz({
   isQuizTypeQA,
@@ -202,6 +203,21 @@ function CreateQuiz({
     }
   };
 
+  const handleDeleteOption = (index) => {
+    const newOptions = textOptions.filter((_, i) => i !== index);
+    setTextOptions(newOptions);
+  };
+
+  const handleDeleteImageOption = (index) => {
+    const newOptions = imageOptions.filter((_, i) => i !== index);
+    setImageOptions(newOptions);
+  };
+
+  const handleDeleteTextImageOption = (index) => {
+    const newOptions = textImageOptions.filter((_, i) => i !== index);
+    setTextImageOptions(newOptions);
+  };
+
   return (
     <div className="Create-Quiz">
       <div className="create-quiz-header">
@@ -295,6 +311,14 @@ function CreateQuiz({
                       }`}
                     />
                   </label>
+                  {index >= 2 && (
+                    <img
+                      src={optionDelete}
+                      className="delete-btn"
+                      alt="delete"
+                      onClick={() => handleDeleteOption(index)}
+                    />
+                  )}
                 </div>
               ))}
               {textOptions.length < 4 && (
@@ -344,6 +368,14 @@ function CreateQuiz({
                       }`}
                     />
                   </label>
+                  {index >= 2 && (
+                    <img
+                      src={optionDelete}
+                      className="delete-btn"
+                      alt="delete"
+                      onClick={() => handleDeleteImageOption(index)}
+                    />
+                  )}
                 </div>
               ))}
               {imageOptions.length < 4 && (
@@ -414,6 +446,14 @@ function CreateQuiz({
                       style={{ marginLeft: "20px" }}
                     />
                   </label>
+                  {index >= 2 && (
+                    <img
+                      src={optionDelete}
+                      className="delete-btn"
+                      alt="delete"
+                      onClick={() => handleDeleteTextImageOption(index)}
+                    />
+                  )}
                 </div>
               ))}
               {textImageOptions.length < 4 && (
